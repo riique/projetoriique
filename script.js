@@ -357,111 +357,252 @@ function toggleTableView() {
     }
 }
 
-// Função para gerar o PDF
-function generatePDF() {
-    // Mostrar feedback visual
-    const exportButton = document.querySelector('.export-button');
-    const originalIcon = exportButton.innerHTML;
-    
-    exportButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
-    exportButton.classList.add('exporting');
-    
-    // Elementos a serem excluídos do PDF
-    const elementsToHide = document.querySelectorAll('.floating-buttons');
-    elementsToHide.forEach(el => el.classList.add('pdf-hide'));
-    
-    // Configurações para o PDF
-    const element = document.body;
-    const options = {
-        margin: [10, 10, 10, 10],
-        filename: 'minha-dieta-personalizada.pdf',
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true, logging: false },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+// ===== UTILITY FUNCTIONS =====
+function getMealName(mealType) {
+    const names = {
+        'breakfast': 'Café da Manhã',
+        'lunch': 'Almoço',
+        'snack': 'Lanche da Tarde',
+        'dinner': 'Jantar',
+        'supper': 'Ceia'
     };
-    
-    // Gerar o PDF
-    html2pdf().set(options).from(element).save().then(() => {
-        // Restaurar elementos escondidos
-        elementsToHide.forEach(el => el.classList.remove('pdf-hide'));
-        
-        // Restaurar o botão original
-        setTimeout(() => {
-            exportButton.innerHTML = originalIcon;
-            exportButton.classList.remove('exporting');
-            
-            // Mostrar feedback de sucesso
-            const successToast = document.createElement('div');
-            successToast.className = 'success-toast';
-            successToast.innerHTML = '<i class="fas fa-check-circle"></i> PDF exportado com sucesso!';
-            document.body.appendChild(successToast);
-            
-            setTimeout(() => {
-                successToast.classList.add('show');
-            }, 100);
-            
-            setTimeout(() => {
-                successToast.classList.remove('show');
-                setTimeout(() => {
-                    document.body.removeChild(successToast);
-                }, 500);
-            }, 3000);
-        }, 1500);
-    });
+    return names[mealType] || mealType;
 }
 
-// Carregar as opções salvas do usuário
-function loadSavedOptions() {
-    const mealTypes = ['breakfast', 'lunch', 'snack', 'dinner', 'supper'];
-    
-    mealTypes.forEach(type => {
-        const savedOption = localStorage.getItem(`${type}-option`);
-        if (savedOption) {
-            openOption(type, savedOption);
+function scrollToSection(sectionId) {
+    const section = document.getElementById(sectionId);
+    if (section) {
+        section.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    }
+}
+
+function calculateDailyTotals() {
+    // Calculate totals based on selected options
+    let totalCalories = 0;
+    let totalProtein = 0;
+    let totalCarbs = 0;
+    let totalFats = 0;
+
+    Object.entries(selectedMealOptions).forEach(([meal, option]) => {
+        const optionElement = document.getElementById(`${meal}-${option}`);
+        if (optionElement) {
+            const totalElement = optionElement.querySelector('.option-total');
+            if (totalElement) {
+                const calories = parseFloat(totalElement.querySelector('.macro-kcal')?.textContent.replace(/[^\d.]/g, '') || 0);
+                const protein = parseFloat(totalElement.querySelector('.macro-proteina')?.textContent.replace(/[^\d.]/g, '') || 0);
+                const carbs = parseFloat(totalElement.querySelector('.macro-carboidrato')?.textContent.replace(/[^\d.]/g, '') || 0);
+                const fats = parseFloat(totalElement.querySelector('.macro-gordura')?.textContent.replace(/[^\d.]/g, '') || 0);
+
+                totalCalories += calories;
+                totalProtein += protein;
+                totalCarbs += carbs;
+                totalFats += fats;
+            }
         }
     });
+
+    // Update display
+    updateMacroDisplay('total-calories', Math.round(totalCalories));
+    updateMacroDisplay('total-protein', Math.round(totalProtein * 10) / 10);
+    updateMacroDisplay('total-carbs', Math.round(totalCarbs * 10) / 10);
+    updateMacroDisplay('total-fats', Math.round(totalFats * 10) / 10);
+
+    showNotification('Totais calculados com base nas suas seleções!', 'success');
 }
 
-// Adicionar efeitos de hover aos items de comida
-function addFoodItemEffects() {
-    const foodItems = document.querySelectorAll('.food-item');
-    
-    foodItems.forEach(item => {
-        item.addEventListener('mouseenter', () => {
-            const macros = item.querySelectorAll('.food-macro');
-            macros.forEach((macro, index) => {
-                macro.style.transitionDelay = `${index * 50}ms`;
-                macro.classList.add('macro-hover');
-            });
-        });
-        
-        item.addEventListener('mouseleave', () => {
-            const macros = item.querySelectorAll('.food-macro');
-            macros.forEach(macro => {
-                macro.style.transitionDelay = '0ms';
-                macro.classList.remove('macro-hover');
-            });
-        });
+function updateMacroDisplay(elementId, value) {
+    const element = document.getElementById(elementId);
+    if (element) {
+        element.textContent = value;
+
+        // Add animation
+        element.style.transform = 'scale(1.1)';
+        setTimeout(() => {
+            element.style.transform = '';
+        }, 200);
+    }
+}
+
+function resetSelections() {
+    // Reset all meal selections to option A
+    ['breakfast', 'lunch', 'snack', 'dinner', 'supper'].forEach(meal => {
+        openOption(meal, 'A');
+    });
+
+    // Clear localStorage
+    localStorage.removeItem('selected-plan');
+    localStorage.removeItem('favorite-plans');
+    localStorage.removeItem('selectedMealOptions');
+
+    // Reset global variables
+    selectedPlan = null;
+    favoritePlans = [];
+    selectedMealOptions = {
+        breakfast: 'A',
+        lunch: 'A',
+        snack: 'A',
+        dinner: 'A',
+        supper: 'A'
+    };
+
+    // Remove selections and highlights
+    document.querySelectorAll('.plan-row').forEach(row => {
+        row.classList.remove('selected', 'highlighted');
+    });
+
+    // Reset favorite buttons
+    document.querySelectorAll('.favorite-btn i').forEach(icon => {
+        icon.className = 'far fa-heart';
+    });
+
+    showNotification('Todas as seleções foram resetadas!', 'info');
+}
+
+function updateDailyTotals() {
+    // Add visual effect to macro items
+    document.querySelectorAll('.macro-item').forEach((item, index) => {
+        setTimeout(() => {
+            item.style.transform = 'scale(1.05)';
+            setTimeout(() => {
+                item.style.transform = '';
+            }, 200);
+        }, index * 100);
     });
 }
 
-// Inicializar quando o DOM estiver carregado
-document.addEventListener('DOMContentLoaded', function() {
-    // Inicializar tema
-    initTheme();
-    initThemeListeners();
-    
-    // Carregar opções salvas
-    loadSavedOptions();
-    
-    // Adicionar efeitos aos itens de comida
-    addFoodItemEffects();
-    
-    // Adicionar classe ao body quando a página estiver totalmente carregada
-    window.addEventListener('load', function() {
-        document.body.classList.add('page-loaded');
+// ===== NOTIFICATIONS SYSTEM =====
+function showNotification(message, type = 'info') {
+    // Remove existing notifications
+    document.querySelectorAll('.notification').forEach(n => n.remove());
+
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.innerHTML = `
+        <i class="fas fa-${getNotificationIcon(type)}"></i>
+        <span>${message}</span>
+        <button onclick="this.parentElement.remove()">
+            <i class="fas fa-times"></i>
+        </button>
+    `;
+
+    document.body.appendChild(notification);
+
+    // Show notification
+    setTimeout(() => {
+        notification.classList.add('show');
+    }, 10);
+
+    // Auto remove after 3 seconds
+    setTimeout(() => {
+        if (notification.parentElement) {
+            notification.classList.remove('show');
+            setTimeout(() => {
+                notification.remove();
+            }, 300);
+        }
+    }, 3000);
+}
+
+function getNotificationIcon(type) {
+    const icons = {
+        'success': 'check-circle',
+        'error': 'exclamation-circle',
+        'warning': 'exclamation-triangle',
+        'info': 'info-circle'
+    };
+    return icons[type] || 'info-circle';
+}
+
+// ===== PDF EXPORT =====
+function generatePDF() {
+    const exportButton = document.querySelector('.export-button');
+    if (!exportButton) return;
+
+    const originalContent = exportButton.innerHTML;
+    exportButton.innerHTML = '<span class="tooltip">Gerando...</span><i class="fas fa-spinner fa-spin"></i>';
+    exportButton.classList.add('exporting');
+
+    // Hide floating buttons for PDF
+    const elementsToHide = document.querySelectorAll('.floating-buttons, .nav-menu, .loading-screen');
+    elementsToHide.forEach(el => el.style.display = 'none');
+
+    const element = document.querySelector('.container');
+    const options = {
+        margin: 1,
+        filename: 'minha-dieta-personalizada.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true },
+        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+    };
+
+    showNotification('Gerando PDF...', 'info');
+
+    html2pdf().set(options).from(element).save().then(() => {
+        // Restore hidden elements
+        elementsToHide.forEach(el => el.style.display = '');
+
+        // Restore button
+        exportButton.innerHTML = originalContent;
+        exportButton.classList.remove('exporting');
+
+        showNotification('PDF gerado com sucesso!', 'success');
+    }).catch(() => {
+        // Restore on error
+        elementsToHide.forEach(el => el.style.display = '');
+        exportButton.innerHTML = originalContent;
+        exportButton.classList.remove('exporting');
+
+        showNotification('Erro ao gerar PDF', 'error');
     });
-});
+}
+
+// ===== DATA PERSISTENCE =====
+function loadSavedData() {
+    // Load selected meal options
+    const savedMealOptions = localStorage.getItem('selectedMealOptions');
+    if (savedMealOptions) {
+        selectedMealOptions = JSON.parse(savedMealOptions);
+    }
+
+    // Load favorite plans
+    const savedFavorites = localStorage.getItem('favorite-plans');
+    if (savedFavorites) {
+        favoritePlans = JSON.parse(savedFavorites);
+    }
+
+    // Load selected plan
+    const savedPlan = localStorage.getItem('selected-plan');
+    if (savedPlan) {
+        selectedPlan = parseInt(savedPlan);
+    }
+
+    // Apply loaded data
+    Object.entries(selectedMealOptions).forEach(([meal, option]) => {
+        const savedSelection = localStorage.getItem(`${meal}-selection`);
+        if (savedSelection) {
+            openOption(meal, savedSelection);
+        }
+    });
+
+    // Apply favorite plans
+    favoritePlans.forEach(planNumber => {
+        const favoriteBtn = document.querySelector(`[data-day="${planNumber}"] .favorite-btn i`);
+        if (favoriteBtn) {
+            favoriteBtn.className = 'fas fa-heart';
+        }
+    });
+
+    // Apply selected plan
+    if (selectedPlan) {
+        const selectedRow = document.querySelector(`[data-day="${selectedPlan}"]`);
+        if (selectedRow) {
+            selectedRow.classList.add('selected');
+        }
+    }
+}
 
 // Adicionar estilos CSS para as novas classes
 const styleSheet = document.createElement('style');
