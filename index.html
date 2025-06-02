@@ -1,0 +1,1751 @@
+<!DOCTYPE html>
+<html lang="pt-br" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minha Dieta Personalizada</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo">
+                <i class="fas fa-utensils"></i>
+            </div>
+            <div class="loading-text">Carregando sua dieta...</div>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Menu -->
+    <nav class="nav-menu" id="nav-menu">
+        <div class="nav-header">
+            <h3><i class="fas fa-utensils"></i> Menu</h3>
+            <button class="nav-close" id="nav-close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#summary" class="nav-link"><i class="fas fa-chart-pie"></i> Resumo</a></li>
+            <li><a href="#breakfast" class="nav-link"><i class="fas fa-coffee"></i> Café da Manhã</a></li>
+            <li><a href="#lunch" class="nav-link"><i class="fas fa-hamburger"></i> Almoço</a></li>
+            <li><a href="#snack" class="nav-link"><i class="fas fa-apple-alt"></i> Lanche</a></li>
+            <li><a href="#dinner" class="nav-link"><i class="fas fa-pizza-slice"></i> Jantar</a></li>
+            <li><a href="#supper" class="nav-link"><i class="fas fa-cookie-bite"></i> Ceia</a></li>
+            <li><a href="treino.html" class="nav-link"><i class="fas fa-dumbbell"></i> Treino</a></li>
+            <li><a href="exames.html" class="nav-link"><i class="fas fa-vial"></i> Exames</a></li>
+        </ul>
+    </nav>
+
+    <!-- Overlay -->
+    <div class="nav-overlay" id="nav-overlay"></div>
+
+    <header>
+        <div class="header-bg"></div>
+        <div class="header-buttons">
+            <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <a href="treino.html" class="header-button training-button">
+                <i class="fas fa-dumbbell"></i>
+                <span>Treino</span>
+            </a>
+            <a href="exames.html" class="header-button exams-button">
+                <i class="fas fa-vial"></i>
+                <span>Exames</span>
+            </a>
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+        <div class="hero-content">
+            <div class="hero-icon">
+                <i class="fas fa-utensils"></i>
+            </div>
+            <h1 class="animate__animated animate__fadeInUp">Minha Dieta Personalizada</h1>
+            <p class="hero-subtitle animate__animated animate__fadeInUp animate__delay-1s">Plano nutricional personalizado para maximizar seus resultados</p>
+            <div class="hero-stats animate__animated animate__fadeInUp animate__delay-2s">
+                <div class="stat-item">
+                    <div class="stat-number">~1.700</div>
+                    <div class="stat-label">kcal/dia</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">145-160g</div>
+                    <div class="stat-label">Proteína</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">5</div>
+                    <div class="stat-label">Refeições</div>
+                </div>
+            </div>
+            <button class="cta-button animate__animated animate__fadeInUp animate__delay-3s" onclick="scrollToSection('summary')">
+                <span>Começar Agora</span>
+                <i class="fas fa-arrow-down"></i>
+            </button>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="summary" id="summary">
+            <div class="summary-header">
+                <h2><i class="fas fa-chart-pie"></i> Resumo Diário</h2>
+                <div class="summary-controls">
+                    <button class="control-btn" id="calculate-btn" onclick="calculateDailyTotals()">
+                        <i class="fas fa-calculator"></i>
+                        Calcular Totais
+                    </button>
+                    <button class="control-btn" id="reset-btn" onclick="resetSelections()">
+                        <i class="fas fa-refresh"></i>
+                        Resetar
+                    </button>
+                </div>
+            </div>
+
+            <div class="summary-description">
+                <p>Média diária da dieta (com variações A–E). Use os controles abaixo para personalizar sua dieta:</p>
+            </div>
+
+            <div class="macro-summary">
+                <div class="macro-item calories" data-macro="calories">
+                    <div class="macro-icon">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <h3>Calorias</h3>
+                    <div class="macro-value" id="total-calories">~1.700</div>
+                    <div class="macro-unit">kcal</div>
+                    <div class="macro-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 85%"></div>
+                        </div>
+                        <span class="progress-text">85% da meta</span>
+                    </div>
+                </div>
+                <div class="macro-item protein" data-macro="protein">
+                    <div class="macro-icon">
+                        <i class="fas fa-drumstick-bite"></i>
+                    </div>
+                    <h3>Proteína</h3>
+                    <div class="macro-value" id="total-protein">145-160</div>
+                    <div class="macro-unit">gramas</div>
+                    <div class="macro-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 92%"></div>
+                        </div>
+                        <span class="progress-text">92% da meta</span>
+                    </div>
+                </div>
+                <div class="macro-item carb" data-macro="carb">
+                    <div class="macro-icon">
+                        <i class="fas fa-bread-slice"></i>
+                    </div>
+                    <h3>Carboidrato</h3>
+                    <div class="macro-value" id="total-carbs">130-150</div>
+                    <div class="macro-unit">gramas</div>
+                    <div class="macro-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 78%"></div>
+                        </div>
+                        <span class="progress-text">78% da meta</span>
+                    </div>
+                </div>
+                <div class="macro-item fat" data-macro="fat">
+                    <div class="macro-icon">
+                        <i class="fas fa-cheese"></i>
+                    </div>
+                    <h3>Gordura</h3>
+                    <div class="macro-value" id="total-fats">50-60</div>
+                    <div class="macro-unit">gramas</div>
+                    <div class="macro-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 88%"></div>
+                        </div>
+                        <span class="progress-text">88% da meta</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="diet-plans-section">
+                <div class="section-header">
+                    <h3><i class="fas fa-calendar-alt"></i> Modelos de Dieta Recomendados</h3>
+                    <div class="table-controls">
+                        <button class="control-btn small" onclick="highlightBestPlan()">
+                            <i class="fas fa-star"></i>
+                            Melhor Plano
+                        </button>
+                        <button class="control-btn small" onclick="toggleTableView()">
+                            <i class="fas fa-table"></i>
+                            Alternar Visualização
+                        </button>
+                    </div>
+                </div>
+
+                <div class="table-wrapper">
+                    <div class="meal-plan-table" id="meal-plan-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="day-col">
+                                        <i class="fas fa-calendar-day"></i>
+                                        Dia
+                                    </th>
+                                    <th class="meal-col">
+                                        <i class="fas fa-coffee"></i>
+                                        Café
+                                    </th>
+                                    <th class="meal-col">
+                                        <i class="fas fa-hamburger"></i>
+                                        Almoço
+                                    </th>
+                                    <th class="meal-col">
+                                        <i class="fas fa-apple-alt"></i>
+                                        Lanche
+                                    </th>
+                                    <th class="meal-col">
+                                        <i class="fas fa-pizza-slice"></i>
+                                        Jantar
+                                    </th>
+                                    <th class="meal-col">
+                                        <i class="fas fa-cookie-bite"></i>
+                                        Ceia
+                                    </th>
+                                    <th class="macro-col calories-col">
+                                        <i class="fas fa-fire"></i>
+                                        Cal (kcal)
+                                    </th>
+                                    <th class="macro-col protein-col">
+                                        <i class="fas fa-drumstick-bite"></i>
+                                        P (g)
+                                    </th>
+                                    <th class="macro-col carb-col">
+                                        <i class="fas fa-bread-slice"></i>
+                                        C (g)
+                                    </th>
+                                    <th class="macro-col fat-col">
+                                        <i class="fas fa-cheese"></i>
+                                        G (g)
+                                    </th>
+                                    <th class="action-col">
+                                        <i class="fas fa-cog"></i>
+                                        Ação
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="plan-row" data-day="1" onclick="selectPlan(1)">
+                                    <td class="day-cell">
+                                        <div class="day-number">1</div>
+                                        <div class="day-label">Segunda</div>
+                                    </td>
+                                    <td class="meal-option" data-meal="breakfast">A</td>
+                                    <td class="meal-option" data-meal="lunch">A</td>
+                                    <td class="meal-option" data-meal="snack">A</td>
+                                    <td class="meal-option" data-meal="dinner">C</td>
+                                    <td class="meal-option" data-meal="supper">A</td>
+                                    <td class="macro-value calories">1.645</td>
+                                    <td class="macro-value protein">151,8</td>
+                                    <td class="macro-value carb">158,2</td>
+                                    <td class="macro-value fat">45,0</td>
+                                    <td class="action-cell">
+                                        <button class="action-btn select-btn" onclick="selectPlan(1)" title="Selecionar este plano">
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                        <button class="action-btn favorite-btn" onclick="toggleFavorite(1)" title="Favoritar">
+                                            <i class="far fa-heart"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr class="plan-row" data-day="2" onclick="selectPlan(2)">
+                                    <td class="day-cell">
+                                        <div class="day-number">2</div>
+                                        <div class="day-label">Terça</div>
+                                    </td>
+                                    <td class="meal-option" data-meal="breakfast">A</td>
+                                    <td class="meal-option" data-meal="lunch">A</td>
+                                    <td class="meal-option" data-meal="snack">A</td>
+                                    <td class="meal-option" data-meal="dinner">C</td>
+                                    <td class="meal-option" data-meal="supper">B</td>
+                                    <td class="macro-value calories">1.678</td>
+                                    <td class="macro-value protein">153,1</td>
+                                    <td class="macro-value carb">151,8</td>
+                                    <td class="macro-value fat">52,2</td>
+                                    <td class="action-cell">
+                                        <button class="action-btn select-btn" onclick="selectPlan(2)" title="Selecionar este plano">
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                        <button class="action-btn favorite-btn" onclick="toggleFavorite(2)" title="Favoritar">
+                                            <i class="far fa-heart"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr class="plan-row" data-day="3" onclick="selectPlan(3)">
+                                    <td class="day-cell">
+                                        <div class="day-number">3</div>
+                                        <div class="day-label">Quarta</div>
+                                    </td>
+                                    <td class="meal-option" data-meal="breakfast">A</td>
+                                    <td class="meal-option" data-meal="lunch">A</td>
+                                    <td class="meal-option" data-meal="snack">A</td>
+                                    <td class="meal-option" data-meal="dinner">D</td>
+                                    <td class="meal-option" data-meal="supper">A</td>
+                                    <td class="macro-value calories">1.650</td>
+                                    <td class="macro-value protein">153,6</td>
+                                    <td class="macro-value carb">197,5</td>
+                                    <td class="macro-value fat">24,4</td>
+                                    <td class="action-cell">
+                                        <button class="action-btn select-btn" onclick="selectPlan(3)" title="Selecionar este plano">
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                        <button class="action-btn favorite-btn" onclick="toggleFavorite(3)" title="Favoritar">
+                                            <i class="far fa-heart"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr class="plan-row" data-day="4" onclick="selectPlan(4)">
+                                    <td class="day-cell">
+                                        <div class="day-number">4</div>
+                                        <div class="day-label">Quinta</div>
+                                    </td>
+                                    <td class="meal-option" data-meal="breakfast">A</td>
+                                    <td class="meal-option" data-meal="lunch">A</td>
+                                    <td class="meal-option" data-meal="snack">A</td>
+                                    <td class="meal-option" data-meal="dinner">D</td>
+                                    <td class="meal-option" data-meal="supper">B</td>
+                                    <td class="macro-value calories">1.682</td>
+                                    <td class="macro-value protein">154,9</td>
+                                    <td class="macro-value carb">191,1</td>
+                                    <td class="macro-value fat">31,6</td>
+                                    <td class="action-cell">
+                                        <button class="action-btn select-btn" onclick="selectPlan(4)" title="Selecionar este plano">
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                        <button class="action-btn favorite-btn" onclick="toggleFavorite(4)" title="Favoritar">
+                                            <i class="far fa-heart"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr class="plan-row" data-day="5" onclick="selectPlan(5)">
+                                    <td class="day-cell">
+                                        <div class="day-number">5</div>
+                                        <div class="day-label">Sexta</div>
+                                    </td>
+                                    <td class="meal-option" data-meal="breakfast">A</td>
+                                    <td class="meal-option" data-meal="lunch">A</td>
+                                    <td class="meal-option" data-meal="snack">A</td>
+                                    <td class="meal-option" data-meal="dinner">E</td>
+                                    <td class="meal-option" data-meal="supper">B</td>
+                                    <td class="macro-value calories">1.640</td>
+                                    <td class="macro-value protein">146,1</td>
+                                    <td class="macro-value carb">189,2</td>
+                                    <td class="macro-value fat">35,6</td>
+                                    <td class="action-cell">
+                                        <button class="action-btn select-btn" onclick="selectPlan(5)" title="Selecionar este plano">
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                        <button class="action-btn favorite-btn" onclick="toggleFavorite(5)" title="Favoritar">
+                                            <i class="far fa-heart"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr class="plan-row" data-day="6" onclick="selectPlan(6)">
+                                    <td class="day-cell">
+                                        <div class="day-number">6</div>
+                                        <div class="day-label">Sábado</div>
+                                    </td>
+                                    <td class="meal-option" data-meal="breakfast">A</td>
+                                    <td class="meal-option" data-meal="lunch">A</td>
+                                    <td class="meal-option" data-meal="snack">E</td>
+                                    <td class="meal-option" data-meal="dinner">C</td>
+                                    <td class="meal-option" data-meal="supper">B</td>
+                                    <td class="macro-value calories">1.649</td>
+                                    <td class="macro-value protein">153,8</td>
+                                    <td class="macro-value carb">167,3</td>
+                                    <td class="macro-value fat">52,3</td>
+                                    <td class="action-cell">
+                                        <button class="action-btn select-btn" onclick="selectPlan(6)" title="Selecionar este plano">
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                        <button class="action-btn favorite-btn" onclick="toggleFavorite(6)" title="Favoritar">
+                                            <i class="far fa-heart"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr class="plan-row" data-day="7" onclick="selectPlan(7)">
+                                    <td class="day-cell">
+                                        <div class="day-number">7</div>
+                                        <div class="day-label">Domingo</div>
+                                    </td>
+                                    <td class="meal-option" data-meal="breakfast">A</td>
+                                    <td class="meal-option" data-meal="lunch">A</td>
+                                    <td class="meal-option" data-meal="snack">E</td>
+                                    <td class="meal-option" data-meal="dinner">D</td>
+                                    <td class="meal-option" data-meal="supper">B</td>
+                                    <td class="macro-value calories">1.654</td>
+                                    <td class="macro-value protein">155,7</td>
+                                    <td class="macro-value carb">206,7</td>
+                                    <td class="macro-value fat">31,8</td>
+                                    <td class="action-cell">
+                                        <button class="action-btn select-btn" onclick="selectPlan(7)" title="Selecionar este plano">
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                        <button class="action-btn favorite-btn" onclick="toggleFavorite(7)" title="Favoritar">
+                                            <i class="far fa-heart"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr class="plan-row" data-day="8" onclick="selectPlan(8)">
+                                    <td class="day-cell">
+                                        <div class="day-number">8</div>
+                                        <div class="day-label">Variação 1</div>
+                                    </td>
+                                    <td class="meal-option" data-meal="breakfast">A</td>
+                                    <td class="meal-option" data-meal="lunch">B</td>
+                                    <td class="meal-option" data-meal="snack">C</td>
+                                    <td class="meal-option" data-meal="dinner">C</td>
+                                    <td class="meal-option" data-meal="supper">C</td>
+                                    <td class="macro-value calories">1.671</td>
+                                    <td class="macro-value protein">155,7</td>
+                                    <td class="macro-value carb">131,1</td>
+                                    <td class="macro-value fat">49,1</td>
+                                    <td class="action-cell">
+                                        <button class="action-btn select-btn" onclick="selectPlan(8)" title="Selecionar este plano">
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                        <button class="action-btn favorite-btn" onclick="toggleFavorite(8)" title="Favoritar">
+                                            <i class="far fa-heart"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr class="plan-row" data-day="9" onclick="selectPlan(9)">
+                                    <td class="day-cell">
+                                        <div class="day-number">9</div>
+                                        <div class="day-label">Variação 2</div>
+                                    </td>
+                                    <td class="meal-option" data-meal="breakfast">A</td>
+                                    <td class="meal-option" data-meal="lunch">B</td>
+                                    <td class="meal-option" data-meal="snack">C</td>
+                                    <td class="meal-option" data-meal="dinner">D</td>
+                                    <td class="meal-option" data-meal="supper">C</td>
+                                    <td class="macro-value calories">1.676</td>
+                                    <td class="macro-value protein">157,5</td>
+                                    <td class="macro-value carb">170,5</td>
+                                    <td class="macro-value fat">28,5</td>
+                                    <td class="action-cell">
+                                        <button class="action-btn select-btn" onclick="selectPlan(9)" title="Selecionar este plano">
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                        <button class="action-btn favorite-btn" onclick="toggleFavorite(9)" title="Favoritar">
+                                            <i class="far fa-heart"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr class="plan-row best-plan" data-day="10" onclick="selectPlan(10)">
+                                    <td class="day-cell">
+                                        <div class="day-number">10</div>
+                                        <div class="day-label">Variação 3</div>
+                                        <div class="best-badge">
+                                            <i class="fas fa-star"></i>
+                                            Recomendado
+                                        </div>
+                                    </td>
+                                    <td class="meal-option" data-meal="breakfast">A</td>
+                                    <td class="meal-option" data-meal="lunch">B</td>
+                                    <td class="meal-option" data-meal="snack">E</td>
+                                    <td class="meal-option" data-meal="dinner">D</td>
+                                    <td class="meal-option" data-meal="supper">B</td>
+                                    <td class="macro-value calories">1.670</td>
+                                    <td class="macro-value protein">146,6</td>
+                                    <td class="macro-value carb">212,6</td>
+                                    <td class="macro-value fat">36,1</td>
+                                    <td class="action-cell">
+                                        <button class="action-btn select-btn" onclick="selectPlan(10)" title="Selecionar este plano">
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                        <button class="action-btn favorite-btn" onclick="toggleFavorite(10)" title="Favoritar">
+                                            <i class="far fa-heart"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="plan-instructions">
+                    <div class="instructions-content">
+                        <div class="instruction-item">
+                            <i class="fas fa-lightbulb"></i>
+                            <p><strong>Dica:</strong> Selecione o modelo que preferir para cada dia da semana. Alterne entre os modelos para variedade nutricional.</p>
+                        </div>
+                        <div class="instruction-item">
+                            <i class="fas fa-balance-scale"></i>
+                            <p><strong>Balanceamento:</strong> Todas as combinações estão balanceadas para proporcionar os nutrientes necessários dentro do total calórico diário recomendado.</p>
+                        </div>
+                        <div class="instruction-item">
+                            <i class="fas fa-star"></i>
+                            <p><strong>Recomendação:</strong> O plano destacado oferece o melhor equilíbrio entre macronutrientes para seus objetivos.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Café da Manhã -->
+        <div class="meal-container" id="breakfast">
+            <div class="meal-header">
+                <div class="meal-title">
+                    <div class="meal-icon">
+                        <i class="fas fa-coffee"></i>
+                    </div>
+                    <div class="meal-info">
+                        <h2>1. CAFÉ DA MANHÃ</h2>
+                        <div class="meal-time">
+                            <i class="fas fa-clock"></i>
+                            <span>07:00 - 09:00</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="meal-controls">
+                    <div class="macro-info">
+                        <div class="macro-badge calories">
+                            <i class="fas fa-fire"></i>
+                            <span>~350 kcal</span>
+                        </div>
+                        <div class="macro-badge protein">
+                            <i class="fas fa-drumstick-bite"></i>
+                            <span>~30g P</span>
+                        </div>
+                        <div class="macro-badge carb">
+                            <i class="fas fa-bread-slice"></i>
+                            <span>~38g C</span>
+                        </div>
+                        <div class="macro-badge fat">
+                            <i class="fas fa-cheese"></i>
+                            <span>~12g G</span>
+                        </div>
+                    </div>
+                    <button class="meal-favorite" onclick="toggleMealFavorite('breakfast')" title="Favoritar refeição">
+                        <i class="far fa-heart"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="options-container">
+                <div class="options-header">
+                    <h3>Escolha sua opção preferida:</h3>
+                    <div class="options-controls">
+                        <button class="control-btn small" onclick="randomizeOption('breakfast')">
+                            <i class="fas fa-random"></i>
+                            Aleatório
+                        </button>
+                        <button class="control-btn small" onclick="compareOptions('breakfast')">
+                            <i class="fas fa-balance-scale"></i>
+                            Comparar
+                        </button>
+                    </div>
+                </div>
+
+                <div class="options-tabs">
+                    <button class="option-tab active" onclick="openOption('breakfast', 'A')" data-option="A">
+                        <span class="option-letter">A</span>
+                        <span class="option-name">Proteína + Frutas</span>
+                        <span class="option-calories">470 kcal</span>
+                    </button>
+                    <button class="option-tab" onclick="openOption('breakfast', 'B')" data-option="B">
+                        <span class="option-letter">B</span>
+                        <span class="option-name">Aveia Completa</span>
+                        <span class="option-calories">417 kcal</span>
+                    </button>
+                    <button class="option-tab" onclick="openOption('breakfast', 'C')" data-option="C">
+                        <span class="option-letter">C</span>
+                        <span class="option-name">Proteico Light</span>
+                        <span class="option-calories">295 kcal</span>
+                    </button>
+                    <button class="option-tab" onclick="openOption('breakfast', 'D')" data-option="D">
+                        <span class="option-letter">D</span>
+                        <span class="option-name">Simples & Rápido</span>
+                        <span class="option-calories">248 kcal</span>
+                    </button>
+                    <button class="option-tab" onclick="openOption('breakfast', 'E')" data-option="E">
+                        <span class="option-letter">E</span>
+                        <span class="option-name">Equilibrado</span>
+                        <span class="option-calories">325 kcal</span>
+                    </button>
+                </div>
+                
+                <!-- Opção A -->
+                <div id="breakfast-A" class="option-content active">
+                    <div class="food-item">
+                        <div class="food-name">Whey Protein <span class="food-macro macro-quantidade">30g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">127 kcal</span>
+                            <span class="food-macro macro-proteina">21g Proteína</span>
+                            <span class="food-macro macro-carboidrato">4.2g Carboidrato</span>
+                            <span class="food-macro macro-gordura">2g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="food-item">
+                        <div class="food-name">Leite integral <span class="food-macro macro-quantidade">200ml</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">116 kcal</span>
+                            <span class="food-macro macro-proteina">6.3g Proteína</span>
+                            <span class="food-macro macro-carboidrato">9g Carboidrato</span>
+                            <span class="food-macro macro-gordura">2g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="food-item">
+                        <div class="food-name">Banana <span class="food-macro macro-quantidade">80g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">71 kcal</span>
+                            <span class="food-macro macro-proteina">0.9g Proteína</span>
+                            <span class="food-macro macro-carboidrato">18.3g Carboidrato</span>
+                            <span class="food-macro macro-gordura">0.3g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="food-item">
+                        <div class="food-name">Pão de Forma <span class="food-macro macro-quantidade">40g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">103 kcal</span>
+                            <span class="food-macro macro-proteina">3.8g Proteína</span>
+                            <span class="food-macro macro-carboidrato">19.2g Carboidrato</span>
+                            <span class="food-macro macro-gordura">1.2g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="food-item">
+                        <div class="food-name">Requeijão <span class="food-macro macro-quantidade">20g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">53 kcal</span>
+                            <span class="food-macro macro-proteina">2.4g Proteína</span>
+                            <span class="food-macro macro-carboidrato">0.4g Carboidrato</span>
+                            <span class="food-macro macro-gordura">4.6g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="option-total">
+                        <div>Total:</div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">470 kcal</span>
+                            <span class="food-macro macro-proteina">34.4g Proteína</span>
+                            <span class="food-macro macro-carboidrato">51.1g Carboidrato</span>
+                            <span class="food-macro macro-gordura">10.1g Gordura</span>
+                        </div>
+                    </div>
+                </div>
+                
+                                <!-- Opção B -->                <div id="breakfast-B" class="option-content">                    <div class="food-item">                        <div class="food-name">Aveia <span class="food-macro macro-quantidade">30g</span></div>                        <div class="food-macros">                            <span class="food-macro macro-kcal">117 kcal</span>                            <span class="food-macro macro-proteina">5.1g Proteína</span>                            <span class="food-macro macro-carboidrato">19.9g Carboidrato</span>                            <span class="food-macro macro-gordura">2.1g Gordura</span>                        </div>                    </div>                                        <div class="food-item">                        <div class="food-name">Iogurte integral <span class="food-macro macro-quantidade">100g</span></div>                        <div class="food-macros">                            <span class="food-macro macro-kcal">121 kcal</span>                            <span class="food-macro macro-proteina">4.2g Proteína</span>                            <span class="food-macro macro-carboidrato">5.1g Carboidrato</span>                            <span class="food-macro macro-gordura">10g Gordura</span>                        </div>                    </div>                                        <div class="food-item">                        <div class="food-name">Maçã <span class="food-macro macro-quantidade">100g</span></div>                        <div class="food-macros">                            <span class="food-macro macro-kcal">52 kcal</span>                            <span class="food-macro macro-proteina">0.3g Proteína</span>                            <span class="food-macro macro-carboidrato">13.8g Carboidrato</span>                            <span class="food-macro macro-gordura">0.2g Gordura</span>                        </div>                    </div>                                        <div class="food-item">                        <div class="food-name">Whey Protein <span class="food-macro macro-quantidade">30g</span></div>                        <div class="food-macros">                            <span class="food-macro macro-kcal">127 kcal</span>                            <span class="food-macro macro-proteina">21g Proteína</span>                            <span class="food-macro macro-carboidrato">4.2g Carboidrato</span>                            <span class="food-macro macro-gordura">2g Gordura</span>                        </div>                    </div>                                        <div class="option-total">                        <div>Total:</div>                        <div class="food-macros">                            <span class="food-macro macro-kcal">417 kcal</span>                            <span class="food-macro macro-proteina">30.6g Proteína</span>                            <span class="food-macro macro-carboidrato">43.0g Carboidrato</span>                            <span class="food-macro macro-gordura">14.3g Gordura</span>                        </div>                    </div>                </div>                                <!-- Opção C -->                <div id="breakfast-C" class="option-content">                    <div class="food-item">                        <div class="food-name">Presunto <span class="food-macro macro-quantidade">28g</span></div>                        <div class="food-macros">                            <span class="food-macro macro-kcal">46 kcal</span>                            <span class="food-macro macro-proteina">4.6g Proteína</span>                            <span class="food-macro macro-carboidrato">1.1g Carboidrato</span>                            <span class="food-macro macro-gordura">2.4g Gordura</span>                        </div>                    </div>                                        <div class="food-item">                        <div class="food-name">Requeijão <span class="food-macro macro-quantidade">20g</span></div>                        <div class="food-macros">                            <span class="food-macro macro-kcal">53 kcal</span>                            <span class="food-macro macro-proteina">2.4g Proteína</span>                            <span class="food-macro macro-carboidrato">0.4g Carboidrato</span>                            <span class="food-macro macro-gordura">4.6g Gordura</span>                        </div>                    </div>                                        <div class="food-item">                        <div class="food-name">Ovo cozido <span class="food-macro macro-quantidade">60g</span></div>                        <div class="food-macros">                            <span class="food-macro macro-kcal">93 kcal</span>                            <span class="food-macro macro-proteina">7.5g Proteína</span>                            <span class="food-macro macro-carboidrato">0.7g Carboidrato</span>                            <span class="food-macro macro-gordura">6.4g Gordura</span>                        </div>                    </div>                                        <div class="food-item">                        <div class="food-name">Pão de Forma <span class="food-macro macro-quantidade">40g</span></div>                        <div class="food-macros">                            <span class="food-macro macro-kcal">103 kcal</span>                            <span class="food-macro macro-proteina">3.8g Proteína</span>                            <span class="food-macro macro-carboidrato">19.2g Carboidrato</span>                            <span class="food-macro macro-gordura">1.2g Gordura</span>                        </div>                    </div>                                        <div class="option-total">                        <div>Total:</div>                        <div class="food-macros">                            <span class="food-macro macro-kcal">295 kcal</span>                            <span class="food-macro macro-proteina">18.3g Proteína</span>                            <span class="food-macro macro-carboidrato">21.4g Carboidrato</span>                            <span class="food-macro macro-gordura">14.6g Gordura</span>                        </div>                    </div>                </div>                                <!-- Opção D -->                <div id="breakfast-D" class="option-content">                    <div class="food-item">                        <div class="food-name">Pão de Forma <span class="food-macro macro-quantidade">40g</span></div>                        <div class="food-macros">                            <span class="food-macro macro-kcal">103 kcal</span>                            <span class="food-macro macro-proteina">3.8g Proteína</span>                            <span class="food-macro macro-carboidrato">19.2g Carboidrato</span>                            <span class="food-macro macro-gordura">1.2g Gordura</span>                        </div>                    </div>                                        <div class="food-item">                        <div class="food-name">Ovo cozido <span class="food-macro macro-quantidade">60g</span></div>                        <div class="food-macros">                            <span class="food-macro macro-kcal">93 kcal</span>                            <span class="food-macro macro-proteina">7.5g Proteína</span>                            <span class="food-macro macro-carboidrato">0.7g Carboidrato</span>                            <span class="food-macro macro-gordura">6.4g Gordura</span>                        </div>                    </div>                                        <div class="food-item">                        <div class="food-name">Maçã <span class="food-macro macro-quantidade">100g</span></div>                        <div class="food-macros">                            <span class="food-macro macro-kcal">52 kcal</span>                            <span class="food-macro macro-proteina">0.3g Proteína</span>                            <span class="food-macro macro-carboidrato">13.8g Carboidrato</span>                            <span class="food-macro macro-gordura">0.2g Gordura</span>                        </div>                    </div>                                        <div class="option-total">                        <div>Total:</div>                        <div class="food-macros">                            <span class="food-macro macro-kcal">248 kcal</span>                            <span class="food-macro macro-proteina">11.6g Proteína</span>                            <span class="food-macro macro-carboidrato">33.7g Carboidrato</span>                            <span class="food-macro macro-gordura">7.8g Gordura</span>                        </div>                    </div>                </div>                                <!-- Opção E -->                <div id="breakfast-E" class="option-content">                    <div class="food-item">                        <div class="food-name">Iogurte integral <span class="food-macro macro-quantidade">100g</span></div>                        <div class="food-macros">                            <span class="food-macro macro-kcal">121 kcal</span>                            <span class="food-macro macro-proteina">4.2g Proteína</span>                            <span class="food-macro macro-carboidrato">5.1g Carboidrato</span>                            <span class="food-macro macro-gordura">10g Gordura</span>                        </div>                    </div>                                        <div class="food-item">                        <div class="food-name">Whey Protein <span class="food-macro macro-quantidade">30g</span></div>                        <div class="food-macros">                            <span class="food-macro macro-kcal">127 kcal</span>                            <span class="food-macro macro-proteina">21g Proteína</span>                            <span class="food-macro macro-carboidrato">4.2g Carboidrato</span>                            <span class="food-macro macro-gordura">2g Gordura</span>                        </div>                    </div>                                        <div class="food-item">                        <div class="food-name">Pão de Forma <span class="food-macro macro-quantidade">30g</span></div>                        <div class="food-macros">                            <span class="food-macro macro-kcal">77 kcal</span>                            <span class="food-macro macro-proteina">2.85g Proteína</span>                            <span class="food-macro macro-carboidrato">14.4g Carboidrato</span>                            <span class="food-macro macro-gordura">0.9g Gordura</span>                        </div>                    </div>                                        <div class="option-total">                        <div>Total:</div>                        <div class="food-macros">                            <span class="food-macro macro-kcal">325 kcal</span>                            <span class="food-macro macro-proteina">27.9g Proteína</span>                            <span class="food-macro macro-carboidrato">23.7g Carboidrato</span>                            <span class="food-macro macro-gordura">12.9g Gordura</span>                        </div>                    </div>                </div>
+            </div>
+        </div>
+        
+        <!-- Almoço -->
+        <div class="meal-container">
+            <div class="meal-header">
+                <h2>🍛 2. ALMOÇO</h2>
+                <div class="macro-info">~400 kcal | ~40g P / ~45g C / ~10g G</div>
+            </div>
+            
+            <div class="options-container">
+                <div class="options-tabs">
+                    <button class="option-tab active" onclick="openOption('lunch', 'A')">Opção A</button>
+                    <button class="option-tab" onclick="openOption('lunch', 'B')">Opção B</button>
+                    <button class="option-tab" onclick="openOption('lunch', 'C')">Opção C</button>
+                    <button class="option-tab" onclick="openOption('lunch', 'D')">Opção D</button>
+                    <button class="option-tab" onclick="openOption('lunch', 'E')">Opção E</button>
+                </div>
+                
+                <!-- Opção A -->
+                <div id="lunch-A" class="option-content active">
+                    <div class="food-item">
+                        <div class="food-name">Peito de Frango <span class="food-macro macro-quantidade">100g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">163 kcal</span>
+                            <span class="food-macro macro-proteina">31g Proteína</span>
+                            <span class="food-macro macro-carboidrato">0g Carboidrato</span>
+                            <span class="food-macro macro-gordura">3.5g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="food-item">
+                        <div class="food-name">Feijão <span class="food-macro macro-quantidade">90g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">68 kcal</span>
+                            <span class="food-macro macro-proteina">4.3g Proteína</span>
+                            <span class="food-macro macro-carboidrato">12.3g Carboidrato</span>
+                            <span class="food-macro macro-gordura">0.4g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="food-item">
+                        <div class="food-name">Arroz Branco <span class="food-macro macro-quantidade">90g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">117 kcal</span>
+                            <span class="food-macro macro-proteina">2.4g Proteína</span>
+                            <span class="food-macro macro-carboidrato">25.7g Carboidrato</span>
+                            <span class="food-macro macro-gordura">0.3g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="food-item">
+                        <div class="food-name">Cenoura <span class="food-macro macro-quantidade">50g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">17 kcal</span>
+                            <span class="food-macro macro-proteina">0.4g Proteína</span>
+                            <span class="food-macro macro-carboidrato">3.5g Carboidrato</span>
+                            <span class="food-macro macro-gordura">0.1g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="option-total">
+                        <div>Total:</div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">365 kcal</span>
+                            <span class="food-macro macro-proteina">38.9g Proteína</span>
+                            <span class="food-macro macro-carboidrato">41.5g Carboidrato</span>
+                            <span class="food-macro macro-gordura">4g Gordura</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Opção B -->
+                <div id="lunch-B" class="option-content">
+                    <div class="food-item">
+                        <div class="food-name">Macarrão <span class="food-macro macro-quantidade">140g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">221 kcal</span>
+                            <span class="food-macro macro-proteina">7g Proteína</span>
+                            <span class="food-macro macro-carboidrato">44g Carboidrato</span>
+                            <span class="food-macro macro-gordura">1.4g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="food-item">
+                        <div class="food-name">Carne Moída <span class="food-macro macro-quantidade">100g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">143 kcal</span>
+                            <span class="food-macro macro-proteina">22g Proteína</span>
+                            <span class="food-macro macro-carboidrato">0g Carboidrato</span>
+                            <span class="food-macro macro-gordura">6g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="food-item">
+                        <div class="food-name">Cenoura <span class="food-macro macro-quantidade">50g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">17 kcal</span>
+                            <span class="food-macro macro-proteina">0.4g Proteína</span>
+                            <span class="food-macro macro-carboidrato">3.5g Carboidrato</span>
+                            <span class="food-macro macro-gordura">0.1g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="option-total">
+                        <div>Total:</div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">381 kcal</span>
+                            <span class="food-macro macro-proteina">29.8g Proteína</span>
+                            <span class="food-macro macro-carboidrato">47.4g Carboidrato</span>
+                            <span class="food-macro macro-gordura">8.3g Gordura</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Opção C -->
+                <div id="lunch-C" class="option-content">
+                    <div class="food-item">
+                        <div class="food-name">Carne Moída Cozida <span class="food-macro macro-quantidade">139g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">375 kcal</span>
+                            <span class="food-macro macro-proteina">35.5g Proteína</span>
+                            <span class="food-macro macro-carboidrato">0g Carboidrato</span>
+                            <span class="food-macro macro-gordura">24.8g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="food-item">
+                        <div class="food-name">Batata Cozida <span class="food-macro macro-quantidade">30g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">26 kcal</span>
+                            <span class="food-macro macro-proteina">0.55g Proteína</span>
+                            <span class="food-macro macro-carboidrato">6.05g Carboidrato</span>
+                            <span class="food-macro macro-gordura">0.05g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="food-item">
+                        <div class="food-name">Feijão <span class="food-macro macro-quantidade">50g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">38 kcal</span>
+                            <span class="food-macro macro-proteina">2.4g Proteína</span>
+                            <span class="food-macro macro-carboidrato">6.8g Carboidrato</span>
+                            <span class="food-macro macro-gordura">0.3g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="option-total">
+                        <div>Total:</div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">530 kcal</span>
+                            <span class="food-macro macro-proteina">40.4g Proteína</span>
+                            <span class="food-macro macro-carboidrato">32.6g Carboidrato</span>
+                            <span class="food-macro macro-gordura">25.4g Gordura</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Opção D -->
+                <div id="lunch-D" class="option-content">
+                    <div class="food-item">
+                        <div class="food-name">Peito de Frango <span class="food-macro macro-quantidade">100g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">163 kcal</span>
+                            <span class="food-macro macro-proteina">31g Proteína</span>
+                            <span class="food-macro macro-carboidrato">0g Carboidrato</span>
+                            <span class="food-macro macro-gordura">3.5g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="food-item">
+                        <div class="food-name">Macarrão <span class="food-macro macro-quantidade">80g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">126 kcal</span>
+                            <span class="food-macro macro-proteina">4g Proteína</span>
+                            <span class="food-macro macro-carboidrato">25g Carboidrato</span>
+                            <span class="food-macro macro-gordura">0.8g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="food-item">
+                        <div class="food-name">Arroz Branco <span class="food-macro macro-quantidade">90g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">117 kcal</span>
+                            <span class="food-macro macro-proteina">2.4g Proteína</span>
+                            <span class="food-macro macro-carboidrato">25.7g Carboidrato</span>
+                            <span class="food-macro macro-gordura">0.3g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="food-item">
+                        <div class="food-name">Feijão <span class="food-macro macro-quantidade">30g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">23 kcal</span>
+                            <span class="food-macro macro-proteina">1.5g Proteína</span>
+                            <span class="food-macro macro-carboidrato">4.1g Carboidrato</span>
+                            <span class="food-macro macro-gordura">0.2g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="option-total">
+                        <div>Total:</div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">429 kcal</span>
+                            <span class="food-macro macro-proteina">38.5g Proteína</span>
+                            <span class="food-macro macro-carboidrato">50g Carboidrato</span>
+                            <span class="food-macro macro-gordura">4.2g Gordura</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Opção E -->
+                <div id="lunch-E" class="option-content">
+                    <div class="food-item">
+                        <div class="food-name">Macarrão <span class="food-macro macro-quantidade">140g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">221 kcal</span>
+                            <span class="food-macro macro-proteina">7g Proteína</span>
+                            <span class="food-macro macro-carboidrato">44g Carboidrato</span>
+                            <span class="food-macro macro-gordura">1.4g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="food-item">
+                        <div class="food-name">Carne de Gado <span class="food-macro macro-quantidade">100g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">143 kcal</span>
+                            <span class="food-macro macro-proteina">25g Proteína</span>
+                            <span class="food-macro macro-carboidrato">0g Carboidrato</span>
+                            <span class="food-macro macro-gordura">4.5g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="food-item">
+                        <div class="food-name">Feijão <span class="food-macro macro-quantidade">50g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">37.8 kcal</span>
+                            <span class="food-macro macro-proteina">2.4g Proteína</span>
+                            <span class="food-macro macro-carboidrato">6.8g Carboidrato</span>
+                            <span class="food-macro macro-gordura">0.3g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="option-total">
+                        <div>Total:</div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">401.8 kcal</span>
+                            <span class="food-macro macro-proteina">56.5g Proteína</span>
+                            <span class="food-macro macro-carboidrato">66.8g Carboidrato</span>
+                            <span class="food-macro macro-gordura">10.3g Gordura</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <!-- Lanche da Tarde -->
+        <div class="meal-container">
+            <div class="meal-header">
+                <h2>🥪 3. LANCHE DA TARDE</h2>
+                <div class="macro-info">~250–435 kcal</div>
+            </div>
+            
+            <div class="options-container">
+                <div class="options-tabs">
+                    <button class="option-tab active" onclick="openOption('snack', 'A')">Opção A</button>
+                    <button class="option-tab" onclick="openOption('snack', 'B')">Opção B</button>
+                    <button class="option-tab" onclick="openOption('snack', 'C')">Opção C</button>
+                    <button class="option-tab" onclick="openOption('snack', 'D')">Opção D</button>
+                    <button class="option-tab" onclick="openOption('snack', 'E')">Opção E</button>
+                </div>
+                
+                <!-- Opção A -->
+                <div id="snack-A" class="option-content active">
+                    <div class="food-item">
+                        <div class="food-name">Whey Protein <span class="food-macro macro-quantidade">30g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">127 kcal</span>
+                            <span class="food-macro macro-proteina">21g Proteína</span>
+                            <span class="food-macro macro-carboidrato">4.2g Carboidrato</span>
+                            <span class="food-macro macro-gordura">2g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="food-item">
+                        <div class="food-name">Maçã <span class="food-macro macro-quantidade">100g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">52 kcal</span>
+                            <span class="food-macro macro-proteina">0.3g Proteína</span>
+                            <span class="food-macro macro-carboidrato">13.8g Carboidrato</span>
+                            <span class="food-macro macro-gordura">0.2g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="food-item">
+                        <div class="food-name">Aveia <span class="food-macro macro-quantidade">15g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">58.5 kcal</span>
+                            <span class="food-macro macro-proteina">2.55g Proteína</span>
+                            <span class="food-macro macro-carboidrato">9.95g Carboidrato</span>
+                            <span class="food-macro macro-gordura">1.05g Gordura</span>
+                        </div>
+                    </div>
+                                      
+                    <div class="option-total">
+                        <div>Total:</div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">237.5 kcal</span>
+                            <span class="food-macro macro-proteina">23.85g Proteína</span>
+                            <span class="food-macro macro-carboidrato">27.95g Carboidrato</span>
+                            <span class="food-macro macro-gordura">3.25g Gordura</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Opção B -->
+                <div id="snack-B" class="option-content">
+                    <div class="food-item">
+                        <div class="food-name">Iogurte integral <span class="food-macro macro-quantidade">100g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">121 kcal</span>
+                            <span class="food-macro macro-proteina">4.2g Proteína</span>
+                            <span class="food-macro macro-carboidrato">5.1g Carboidrato</span>
+                            <span class="food-macro macro-gordura">10g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="food-item">
+                        <div class="food-name">Banana <span class="food-macro macro-quantidade">80g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">71 kcal</span>
+                            <span class="food-macro macro-proteina">0.9g Proteína</span>
+                            <span class="food-macro macro-carboidrato">18.3g Carboidrato</span>
+                            <span class="food-macro macro-gordura">0.3g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="food-item">
+                        <div class="food-name">Aveia <span class="food-macro macro-quantidade">30g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">117 kcal</span>
+                            <span class="food-macro macro-proteina">5.1g Proteína</span>
+                            <span class="food-macro macro-carboidrato">19.9g Carboidrato</span>
+                            <span class="food-macro macro-gordura">2.1g Gordura</span>
+                        </div>
+                    </div>
+
+                    <div class="food-item">
+                        <div class="food-name">Whey Protein <span class="food-macro macro-quantidade">30g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">127 kcal</span>
+                            <span class="food-macro macro-proteina">21g Proteína</span>
+                            <span class="food-macro macro-carboidrato">4.2g Carboidrato</span>
+                            <span class="food-macro macro-gordura">2g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="option-total">
+                        <div>Total:</div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">436 kcal</span>
+                            <span class="food-macro macro-proteina">31.2g Proteína</span>
+                            <span class="food-macro macro-carboidrato">47.5g Carboidrato</span>
+                            <span class="food-macro macro-gordura">14.4g Gordura</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Opção C -->
+                <div id="snack-C" class="option-content">
+                    <div class="food-item">
+                        <div class="food-name">Iogurte integral <span class="food-macro macro-quantidade">100g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">121 kcal</span>
+                            <span class="food-macro macro-proteina">4.2g Proteína</span>
+                            <span class="food-macro macro-carboidrato">5.1g Carboidrato</span>
+                            <span class="food-macro macro-gordura">10g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="food-item">
+                        <div class="food-name">Pão de Forma <span class="food-macro macro-quantidade">40g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">103 kcal</span>
+                            <span class="food-macro macro-proteina">3.8g Proteína</span>
+                            <span class="food-macro macro-carboidrato">19.2g Carboidrato</span>
+                            <span class="food-macro macro-gordura">1.2g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="food-item">
+                        <div class="food-name">Presunto <span class="food-macro macro-quantidade">28g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">46 kcal</span>
+                            <span class="food-macro macro-proteina">4.6g Proteína</span>
+                            <span class="food-macro macro-carboidrato">1.1g Carboidrato</span>
+                            <span class="food-macro macro-gordura">2.4g Gordura</span>
+                        </div>
+                    </div>
+
+                    <div class="food-item">
+                        <div class="food-name">Requeijão <span class="food-macro macro-quantidade">20g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">53 kcal</span>
+                            <span class="food-macro macro-proteina">2.4g Proteína</span>
+                            <span class="food-macro macro-carboidrato">0.4g Carboidrato</span>
+                            <span class="food-macro macro-gordura">4.6g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="option-total">
+                        <div>Total:</div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">323 kcal</span>
+                            <span class="food-macro macro-proteina">15.0g Proteína</span>
+                            <span class="food-macro macro-carboidrato">25.8g Carboidrato</span>
+                            <span class="food-macro macro-gordura">18.2g Gordura</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Opção D -->
+                <div id="snack-D" class="option-content">
+                    <div class="food-item">
+                        <div class="food-name">Leite integral <span class="food-macro macro-quantidade">200ml</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">116 kcal</span>
+                            <span class="food-macro macro-proteina">6.3g Proteína</span>
+                            <span class="food-macro macro-carboidrato">9g Carboidrato</span>
+                            <span class="food-macro macro-gordura">2g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="food-item">
+                        <div class="food-name">Aveia <span class="food-macro macro-quantidade">20g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">78 kcal</span>
+                            <span class="food-macro macro-proteina">3.4g Proteína</span>
+                            <span class="food-macro macro-carboidrato">13.3g Carboidrato</span>
+                            <span class="food-macro macro-gordura">1.4g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="food-item">
+                        <div class="food-name">Whey Protein <span class="food-macro macro-quantidade">30g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">127 kcal</span>
+                            <span class="food-macro macro-proteina">21g Proteína</span>
+                            <span class="food-macro macro-carboidrato">4.2g Carboidrato</span>
+                            <span class="food-macro macro-gordura">2g Gordura</span>
+                        </div>
+                    </div>
+
+                    <div class="food-item">
+                        <div class="food-name">Ovo cozido <span class="food-macro macro-quantidade">60g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">93 kcal</span>
+                            <span class="food-macro macro-proteina">7.5g Proteína</span>
+                            <span class="food-macro macro-carboidrato">0.7g Carboidrato</span>
+                            <span class="food-macro macro-gordura">6.4g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="option-total">
+                        <div>Total:</div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">414 kcal</span>
+                            <span class="food-macro macro-proteina">38.2g Proteína</span>
+                            <span class="food-macro macro-carboidrato">27.2g Carboidrato</span>
+                            <span class="food-macro macro-gordura">11.8g Gordura</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Opção E -->
+                <div id="snack-E" class="option-content">
+                    <div class="food-item">
+                        <div class="food-name">Whey Protein <span class="food-macro macro-quantidade">30g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">127 kcal</span>
+                            <span class="food-macro macro-proteina">21g Proteína</span>
+                            <span class="food-macro macro-carboidrato">4.2g Carboidrato</span>
+                            <span class="food-macro macro-gordura">2g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="food-item">
+                        <div class="food-name">Maçã <span class="food-macro macro-quantidade">100g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">52 kcal</span>
+                            <span class="food-macro macro-proteina">0.3g Proteína</span>
+                            <span class="food-macro macro-carboidrato">13.8g Carboidrato</span>
+                            <span class="food-macro macro-gordura">0.2g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="food-item">
+                        <div class="food-name">Iogurte integral <span class="food-macro macro-quantidade">100g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">121 kcal</span>
+                            <span class="food-macro macro-proteina">4.2g Proteína</span>
+                            <span class="food-macro macro-carboidrato">5.1g Carboidrato</span>
+                            <span class="food-macro macro-gordura">10g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="option-total">
+                        <div>Total:</div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">300 kcal</span>
+                            <span class="food-macro macro-proteina">25.5g Proteína</span>
+                            <span class="food-macro macro-carboidrato">23.1g Carboidrato</span>
+                            <span class="food-macro macro-gordura">12.2g Gordura</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Jantar -->
+        <div class="meal-container">
+            <div class="meal-header">
+                <h2>🍽️ 4. JANTAR</h2>
+                <div class="macro-info">~400 kcal | ~35g P / ~40g C / ~10g G</div>
+            </div>
+            
+            <div class="options-container">
+                <div class="options-tabs">
+                    <button class="option-tab active" onclick="openOption('dinner', 'A')">Opção A</button>
+                    <button class="option-tab" onclick="openOption('dinner', 'B')">Opção B</button>
+                    <button class="option-tab" onclick="openOption('dinner', 'C')">Opção C</button>
+                    <button class="option-tab" onclick="openOption('dinner', 'D')">Opção D</button>
+                    <button class="option-tab" onclick="openOption('dinner', 'E')">Opção E</button>
+                </div>
+                
+                <!-- Opção A -->
+                <div id="dinner-A" class="option-content active">
+                    <div class="food-item">
+                        <div class="food-name">Frango Desfiado <span class="food-macro macro-quantidade">100g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">163 kcal</span>
+                            <span class="food-macro macro-proteina">31.5g Proteína</span>
+                            <span class="food-macro macro-carboidrato">0g Carboidrato</span>
+                            <span class="food-macro macro-gordura">3.2g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="food-item">
+                        <div class="food-name">Arroz Branco <span class="food-macro macro-quantidade">80g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">104 kcal</span>
+                            <span class="food-macro macro-proteina">2.2g Proteína</span>
+                            <span class="food-macro macro-carboidrato">22.9g Carboidrato</span>
+                            <span class="food-macro macro-gordura">0.25g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="food-item">
+                        <div class="food-name">Cenoura Ralada <span class="food-macro macro-quantidade">50g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">20 kcal</span>
+                            <span class="food-macro macro-proteina">0.4g Proteína</span>
+                            <span class="food-macro macro-carboidrato">4.6g Carboidrato</span>
+                            <span class="food-macro macro-gordura">0.1g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="food-item">
+                        <div class="food-name">Feijão <span class="food-macro macro-quantidade">50g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">38 kcal</span>
+                            <span class="food-macro macro-proteina">2.4g Proteína</span>
+                            <span class="food-macro macro-carboidrato">6.8g Carboidrato</span>
+                            <span class="food-macro macro-gordura">0.3g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="option-total">
+                        <div>Total:</div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">325 kcal</span>
+                            <span class="food-macro macro-proteina">36.5g Proteína</span>
+                            <span class="food-macro macro-carboidrato">34.3g Carboidrato</span>
+                            <span class="food-macro macro-gordura">3.85g Gordura</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Opção B -->
+                <div id="dinner-B" class="option-content">
+                    <div class="food-item">
+                        <div class="food-name">Macarrão Cozido <span class="food-macro macro-quantidade">140g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">221 kcal</span>
+                            <span class="food-macro macro-proteina">8.1g Proteína</span>
+                            <span class="food-macro macro-carboidrato">43.2g Carboidrato</span>
+                            <span class="food-macro macro-gordura">1.3g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="food-item">
+                        <div class="food-name">Carne de Gado Magra <span class="food-macro macro-quantidade">100g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">143 kcal</span>
+                            <span class="food-macro macro-proteina">21g Proteína</span>
+                            <span class="food-macro macro-carboidrato">0.3g Carboidrato</span>
+                            <span class="food-macro macro-gordura">7g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="food-item">
+                        <div class="food-name">Cenoura Ralada <span class="food-macro macro-quantidade">50g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">20 kcal</span>
+                            <span class="food-macro macro-proteina">0.4g Proteína</span>
+                            <span class="food-macro macro-carboidrato">4.6g Carboidrato</span>
+                            <span class="food-macro macro-gordura">0.1g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="food-item">
+                        <div class="food-name">Feijão <span class="food-macro macro-quantidade">50g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">38 kcal</span>
+                            <span class="food-macro macro-proteina">2.4g Proteína</span>
+                            <span class="food-macro macro-carboidrato">6.8g Carboidrato</span>
+                            <span class="food-macro macro-gordura">0.3g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="option-total">
+                        <div>Total:</div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">422 kcal</span>
+                            <span class="food-macro macro-proteina">31.9g Proteína</span>
+                            <span class="food-macro macro-carboidrato">54.9g Carboidrato</span>
+                            <span class="food-macro macro-gordura">8.7g Gordura</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Opção C -->
+                <div id="dinner-C" class="option-content">
+                    <div class="food-item">
+                        <div class="food-name">Carne Moída Cozida <span class="food-macro macro-quantidade">139g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">375 kcal</span>
+                            <span class="food-macro macro-proteina">35.5g Proteína</span>
+                            <span class="food-macro macro-carboidrato">0g Carboidrato</span>
+                            <span class="food-macro macro-gordura">24.8g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="food-item">
+                        <div class="food-name">Batata Cozida <span class="food-macro macro-quantidade">30g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">26 kcal</span>
+                            <span class="food-macro macro-proteina">0.55g Proteína</span>
+                            <span class="food-macro macro-carboidrato">6.05g Carboidrato</span>
+                            <span class="food-macro macro-gordura">0.05g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="food-item">
+                        <div class="food-name">Feijão <span class="food-macro macro-quantidade">50g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">38 kcal</span>
+                            <span class="food-macro macro-proteina">2.4g Proteína</span>
+                            <span class="food-macro macro-carboidrato">6.8g Carboidrato</span>
+                            <span class="food-macro macro-gordura">0.3g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="option-total">
+                        <div>Total:</div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">530 kcal</span>
+                            <span class="food-macro macro-proteina">40.4g Proteína</span>
+                            <span class="food-macro macro-carboidrato">32.6g Carboidrato</span>
+                            <span class="food-macro macro-gordura">25.4g Gordura</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Opção D -->
+                <div id="dinner-D" class="option-content">
+                    <div class="food-item">
+                        <div class="food-name">Frango Desfiado <span class="food-macro macro-quantidade">100g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">163 kcal</span>
+                            <span class="food-macro macro-proteina">31.5g Proteína</span>
+                            <span class="food-macro macro-carboidrato">0g Carboidrato</span>
+                            <span class="food-macro macro-gordura">3.2g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="food-item">
+                        <div class="food-name">Macarrão Cozido <span class="food-macro macro-quantidade">80g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">126 kcal</span>
+                            <span class="food-macro macro-proteina">4g Proteína</span>
+                            <span class="food-macro macro-carboidrato">20g Carboidrato</span>
+                            <span class="food-macro macro-gordura">0.8g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="food-item">
+                        <div class="food-name">Arroz Branco <span class="food-macro macro-quantidade">90g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">117 kcal</span>
+                            <span class="food-macro macro-proteina">2.4g Proteína</span>
+                            <span class="food-macro macro-carboidrato">25.4g Carboidrato</span>
+                            <span class="food-macro macro-gordura">0.3g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="food-item">
+                        <div class="food-name">Feijão <span class="food-macro macro-quantidade">50g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">38 kcal</span>
+                            <span class="food-macro macro-proteina">2.4g Proteína</span>
+                            <span class="food-macro macro-carboidrato">6.8g Carboidrato</span>
+                            <span class="food-macro macro-gordura">0.3g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="option-total">
+                        <div>Total:</div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">444 kcal</span>
+                            <span class="food-macro macro-proteina">40.3g Proteína</span>
+                            <span class="food-macro macro-carboidrato">52.2g Carboidrato</span>
+                            <span class="food-macro macro-gordura">4.6g Gordura</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Opção E -->
+                <div id="dinner-E" class="option-content">
+                    <div class="food-item">
+                        <div class="food-name">Macarrão Cozido <span class="food-macro macro-quantidade">140g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">221 kcal</span>
+                            <span class="food-macro macro-proteina">8.1g Proteína</span>
+                            <span class="food-macro macro-carboidrato">43.2g Carboidrato</span>
+                            <span class="food-macro macro-gordura">1.3g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="food-item">
+                        <div class="food-name">Frango desfiado <span class="food-macro macro-quantidade">100g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">163 kcal</span>
+                            <span class="food-macro macro-proteina">31.5g Proteína</span>
+                            <span class="food-macro macro-carboidrato">0g Carboidrato</span>
+                            <span class="food-macro macro-gordura">3.2g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="food-item">
+                        <div class="food-name">Feijão <span class="food-macro macro-quantidade">50g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">38 kcal</span>
+                            <span class="food-macro macro-proteina">2.4g Proteína</span>
+                            <span class="food-macro macro-carboidrato">6.8g Carboidrato</span>
+                            <span class="food-macro macro-gordura">0.3g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="option-total">
+                        <div>Total:</div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">402 kcal</span>
+                            <span class="food-macro macro-proteina">31.5g Proteína</span>
+                            <span class="food-macro macro-carboidrato">50.3g Carboidrato</span>
+                            <span class="food-macro macro-gordura">8.6g Gordura</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Ceia -->
+        <div class="meal-container">
+            <div class="meal-header">
+                <h2>🌙 5. CEIA</h2>
+                <div class="macro-info">~250 kcal | ~20g P / ~25g C / ~7g G</div>
+            </div>
+            
+            <div class="options-container">
+                <div class="options-tabs">
+                    <button class="option-tab active" onclick="openOption('supper', 'A')">Opção A</button>
+                    <button class="option-tab" onclick="openOption('supper', 'B')">Opção B</button>
+                    <button class="option-tab" onclick="openOption('supper', 'C')">Opção C</button>
+                    <button class="option-tab" onclick="openOption('supper', 'D')">Opção D</button>
+                    <button class="option-tab" onclick="openOption('supper', 'E')">Opção E</button>
+                </div>
+                
+                <!-- Opção A -->
+                <div id="supper-A" class="option-content active">
+                    <div class="food-item">
+                        <div class="food-name">Whey Protein <span class="food-macro macro-quantidade">20g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">85 kcal</span>
+                            <span class="food-macro macro-proteina">16g Proteína</span>
+                            <span class="food-macro macro-carboidrato">2g Carboidrato</span>
+                            <span class="food-macro macro-gordura">1g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="food-item">
+                        <div class="food-name">Leite <span class="food-macro macro-quantidade">200ml</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">116 kcal</span>
+                            <span class="food-macro macro-proteina">6.4g Proteína</span>
+                            <span class="food-macro macro-carboidrato">9.6g Carboidrato</span>
+                            <span class="food-macro macro-gordura">6.4g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="food-item">
+                        <div class="food-name">Aveia <span class="food-macro macro-quantidade">15g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">58.5 kcal</span>
+                            <span class="food-macro macro-proteina">2.1g Proteína</span>
+                            <span class="food-macro macro-carboidrato">10.5g Carboidrato</span>
+                            <span class="food-macro macro-gordura">1g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="option-total">
+                        <div>Total:</div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">259.5 kcal</span>
+                            <span class="food-macro macro-proteina">24.8g Proteína</span>
+                            <span class="food-macro macro-carboidrato">28.5g Carboidrato</span>
+                            <span class="food-macro macro-gordura">5.1g Gordura</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Opção B -->
+                <div id="supper-B" class="option-content">
+                    <div class="food-item">
+                        <div class="food-name">Whey Protein <span class="food-macro macro-quantidade">30g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">127 kcal</span>
+                            <span class="food-macro macro-proteina">24g Proteína</span>
+                            <span class="food-macro macro-carboidrato">3g Carboidrato</span>
+                            <span class="food-macro macro-gordura">1.5g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="food-item">
+                        <div class="food-name">Iogurte <span class="food-macro macro-quantidade">100g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">121 kcal</span>
+                            <span class="food-macro macro-proteina">3.5g Proteína</span>
+                            <span class="food-macro macro-carboidrato">10g Carboidrato</span>
+                            <span class="food-macro macro-gordura">10g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="food-item">
+                        <div class="food-name">Banana <span class="food-macro macro-quantidade">50g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">44 kcal</span>
+                            <span class="food-macro macro-proteina">0.6g Proteína</span>
+                            <span class="food-macro macro-carboidrato">11.3g Carboidrato</span>
+                            <span class="food-macro macro-gordura">0.2g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="option-total">
+                        <div>Total:</div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">292 kcal</span>
+                            <span class="food-macro macro-proteina">26.1g Proteína</span>
+                            <span class="food-macro macro-carboidrato">22.1g Carboidrato</span>
+                            <span class="food-macro macro-gordura">12.3g Gordura</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Opção C -->
+                <div id="supper-C" class="option-content">
+                    <div class="food-item">
+                        <div class="food-name">Leite integral <span class="food-macro macro-quantidade">200ml</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">116 kcal</span>
+                            <span class="food-macro macro-proteina">6.3g Proteína</span>
+                            <span class="food-macro macro-carboidrato">9g Carboidrato</span>
+                            <span class="food-macro macro-gordura">2g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="food-item">
+                        <div class="food-name">Whey Protein <span class="food-macro macro-quantidade">30g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">127 kcal</span>
+                            <span class="food-macro macro-proteina">21g Proteína</span>
+                            <span class="food-macro macro-carboidrato">4.2g Carboidrato</span>
+                            <span class="food-macro macro-gordura">2g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="food-item">
+                        <div class="food-name">Aveia <span class="food-macro macro-quantidade">20g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">78 kcal</span>
+                            <span class="food-macro macro-proteina">3.4g Proteína</span>
+                            <span class="food-macro macro-carboidrato">13.3g Carboidrato</span>
+                            <span class="food-macro macro-gordura">1.4g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="option-total">
+                        <div>Total:</div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">321 kcal</span>
+                            <span class="food-macro macro-proteina">30.7g Proteína</span>
+                            <span class="food-macro macro-carboidrato">26.5g Carboidrato</span>
+                            <span class="food-macro macro-gordura">5.4g Gordura</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Opção D -->
+                <div id="supper-D" class="option-content">
+                    <div class="food-item">
+                        <div class="food-name">Whey Protein <span class="food-macro macro-quantidade">20g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">85 kcal</span>
+                            <span class="food-macro macro-proteina">16g Proteína</span>
+                            <span class="food-macro macro-carboidrato">2g Carboidrato</span>
+                            <span class="food-macro macro-gordura">1g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="food-item">
+                        <div class="food-name">Iogurte <span class="food-macro macro-quantidade">100g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">121 kcal</span>
+                            <span class="food-macro macro-proteina">3.5g Proteína</span>
+                            <span class="food-macro macro-carboidrato">10g Carboidrato</span>
+                            <span class="food-macro macro-gordura">10g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="food-item">
+                        <div class="food-name">Banana <span class="food-macro macro-quantidade">30g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">26.5 kcal</span>
+                            <span class="food-macro macro-proteina">0.4g Proteína</span>
+                            <span class="food-macro macro-carboidrato">6.8g Carboidrato</span>
+                            <span class="food-macro macro-gordura">0.1g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="option-total">
+                        <div>Total:</div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">232.5 kcal</span>
+                            <span class="food-macro macro-proteina">18.5g Proteína</span>
+                            <span class="food-macro macro-carboidrato">22.2g Carboidrato</span>
+                            <span class="food-macro macro-gordura">12.3g Gordura</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Opção E -->
+                <div id="supper-E" class="option-content">
+                    <div class="food-item">
+                        <div class="food-name">Whey Protein <span class="food-macro macro-quantidade">15g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">63.5 kcal</span>
+                            <span class="food-macro macro-proteina">12g Proteína</span>
+                            <span class="food-macro macro-carboidrato">1.5g Carboidrato</span>
+                            <span class="food-macro macro-gordura">0.8g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="food-item">
+                        <div class="food-name">Banana <span class="food-macro macro-quantidade">80g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">71 kcal</span>
+                            <span class="food-macro macro-proteina">0.9g Proteína</span>
+                            <span class="food-macro macro-carboidrato">18g Carboidrato</span>
+                            <span class="food-macro macro-gordura">0.3g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="food-item">
+                        <div class="food-name">Iogurte <span class="food-macro macro-quantidade">50g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">60.5 kcal</span>
+                            <span class="food-macro macro-proteina">1.8g Proteína</span>
+                            <span class="food-macro macro-carboidrato">5g Carboidrato</span>
+                            <span class="food-macro macro-gordura">5g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="food-item">
+                        <div class="food-name">Aveia <span class="food-macro macro-quantidade">5g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">19.5 kcal</span>
+                            <span class="food-macro macro-proteina">0.7g Proteína</span>
+                            <span class="food-macro macro-carboidrato">3.5g Carboidrato</span>
+                            <span class="food-macro macro-gordura">0.3g Gordura</span>
+                        </div>
+                    </div>
+                    
+                    <div class="option-total">
+                        <div>Total:</div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-kcal">214.5 kcal</span>
+                            <span class="food-macro macro-proteina">22.1g Proteína</span>
+                            <span class="food-macro macro-carboidrato">26.7g Carboidrato</span>
+                            <span class="food-macro macro-gordura">5.4g Gordura</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Seção de Suplementação -->
+        <div class="meal-container">
+            <div class="meal-header">
+                <h2><i class="fas fa-pills"></i> SUPLEMENTAÇÃO</h2>
+                <div class="macro-info">Protocolo Diário de Suplementos</div>
+            </div>
+            
+            <div class="options-container">
+                <div class="option-content active" id="supplements-content">
+                    <div class="food-item supplement-item">
+                        <div class="food-name">Creatina Monohidratada <span class="food-macro macro-quantidade">6g</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-timing">Após o Almoço</span>
+                        </div>
+                    </div>
+                    
+                    <div class="food-item supplement-item">
+                        <div class="food-name">Beta Alanina <span class="food-macro macro-quantidade">6g/dia</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-timing">Fracionado 2x/dia (2x 3g)</span>
+                        </div>
+                    </div>
+                    
+                    <div class="food-item supplement-item">
+                        <div class="food-name">Multivitamínico <span class="food-macro macro-quantidade">2 cápsulas</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-timing">Após refeição principal</span>
+                        </div>
+                    </div>
+                    
+                    <div class="food-item supplement-item">
+                        <div class="food-name">Pré-treino <span class="food-macro macro-quantidade">1 dose</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-timing">20-40 min antes do treino</span>
+                            <span class="food-macro macro-note">Só em dias de treino</span>
+                        </div>
+                    </div>
+                    
+                    <div class="food-item supplement-item">
+                        <div class="food-name">Cafeína <span class="food-macro macro-quantidade">100mg</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-timing">1 Cápsula</span>
+                            <span class="food-macro macro-note">Uso estratégico</span>
+                        </div>
+                    </div>
+                    
+                    <div class="food-item supplement-item">
+                        <div class="food-name">Vitamina D3 <span class="food-macro macro-quantidade">2000-4000 UI/dia</span></div>
+                        <div class="food-macros">
+                            <span class="food-macro macro-timing">Com almoço (junto com gordura)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container footer-content">
+            <p class="copyright">&copy; 2025 Minha Dieta Personalizada</p>
+            <p class="description">Plataforma desenvolvida para gerenciamento personalizado de dieta e acompanhamento nutricional</p>
+        </div>
+    </footer>
+    
+    <div class="floating-buttons">
+        <button class="floating-button theme-button" id="theme-toggle-float" aria-label="Alternar modo escuro">
+            <span class="tooltip">Alternar modo</span>
+            <i class="fas fa-moon"></i>
+        </button>
+        <button class="floating-button export-button" onclick="generatePDF()" aria-label="Exportar para PDF">
+            <span class="tooltip">Exportar PDF</span>
+            <i class="fas fa-file-pdf"></i>
+        </button>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="script.js"></script>
+</body>
+</html> 

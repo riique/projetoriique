@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="pt-br" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Treino Personalizado</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-bg"></div>
+        <div class="header-buttons">
+            <a href="index.html" class="header-button diet-button">
+                <i class="fas fa-utensils"></i>
+                <span>Dieta</span>
+            </a>
+            <a href="exames.html" class="header-button exams-button">
+                <i class="fas fa-vial"></i>
+                <span>Exames</span>
+            </a>
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+        <div class="hero-content">
+            <h1>Meu Treino Personalizado</h1>
+            <p class="hero-subtitle">Plano de treinamento para maximizar seus resultados</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="summary">
+            <h2>Visão Geral</h2>
+            <p>Treino PPL (Push, Pull, Legs) para Cutting Natural - 6x por semana</p>
+            
+            <div class="weekly-schedule">
+                <h3>Divisão Semanal</h3>
+                <div class="schedule-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Dia</th>
+                                <th>Treino</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Segunda</td>
+                                <td>Push A</td>
+                            </tr>
+                            <tr>
+                                <td>Terça</td>
+                                <td>Pull A</td>
+                            </tr>
+                            <tr>
+                                <td>Quarta</td>
+                                <td>Legs A</td>
+                            </tr>
+                            <tr>
+                                <td>Quinta</td>
+                                <td>Push B</td>
+                            </tr>
+                            <tr>
+                                <td>Sexta</td>
+                                <td>Pull B</td>
+                            </tr>
+                            <tr>
+                                <td>Sábado</td>
+                                <td>Legs B + Abdômen / Cardio leve</td>
+                            </tr>
+                            <tr>
+                                <td>Domingo</td>
+                                <td>Descanso</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Push A -->
+        <div class="workout-container">
+            <div class="workout-header">
+                <h2><i class="fas fa-angle-double-up"></i> PUSH A</h2>
+                <div class="workout-info">Peito, Ombro, Tríceps</div>
+            </div>
+            
+            <div class="workout-content">
+                <div class="exercise-item">
+                    <div class="exercise-name">Supino reto com barra</div>
+                    <div class="exercise-details">
+                        <span class="exercise-sets">4 séries</span>
+                        <span class="exercise-reps">8-10 repetições</span>
+                    </div>
+                </div>
+                
+                <div class="exercise-item">
+                    <div class="exercise-name">Supino reto com halteres</div>
+                    <div class="exercise-details">
+                        <span class="exercise-sets">3 séries</span>
+                        <span class="exercise-reps">10 repetições</span>
+                    </div>
+                </div>
+                
+                <div class="exercise-item">
+                    <div class="exercise-name">Desenvolvimento militar com barra</div>
+                    <div class="exercise-details">
+                        <span class="exercise-sets">4 séries</span>
+                        <span class="exercise-reps">10 repetições</span>
+                    </div>
+                </div>
+                
+                <div class="exercise-item">
+                    <div class="exercise-name">Crucifixo reto</div>
+                    <div class="exercise-details">
+                        <span class="exercise-sets">3 séries</span>
+                        <span class="exercise-reps">12 repetições</span>
+                    </div>
+                </div>
+                
+                <div class="exercise-item">
+                    <div class="exercise-name">Elevação lateral</div>
+                    <div class="exercise-details">
+                        <span class="exercise-sets">3 séries</span>
+                        <span class="exercise-reps">15 repetições</span>
+                    </div>
+                </div>
+                
+                <div class="exercise-item">
+                    <div class="exercise-name">Tríceps pulley (barra ou V)</div>
+                    <div class="exercise-details">
+                        <span class="exercise-sets">3 séries</span>
+                        <span class="exercise-reps">12-15 repetições</span>
+                    </div>
+                </div>
+                
+                <div class="exercise-item">
+                    <div class="exercise-name">Tríceps francês unilateral com halter</div>
+                    <div class="exercise-details">
+                        <span class="exercise-sets">3 séries</span>
+                        <span class="exercise-reps">12 repetições</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Pull A -->
+        <div class="workout-container">
+            <div class="workout-header">
+                <h2><i class="fas fa-angle-double-down"></i> PULL A</h2>
+                <div class="workout-info">Costas, Bíceps, Posterior de Ombro</div>
+            </div>
+            
+            <div class="workout-content">
+                <div class="exercise-item">
+                    <div class="exercise-name">Pulley frente pegada aberta</div>
+                    <div class="exercise-details">
+                        <span class="exercise-sets">4 séries</span>
+                        <span class="exercise-reps">10 repetições</span>
+                    </div>
+                </div>
+                
+                <div class="exercise-item">
+                    <div class="exercise-name">Remada curvada com barra</div>
+                    <div class="exercise-details">
+                        <span class="exercise-sets">4 séries</span>
+                        <span class="exercise-reps">10 repetições</span>
+                    </div>
+                </div>
+                
+                <div class="exercise-item">
+                    <div class="exercise-name">Remada unilateral com halter</div>
+                    <div class="exercise-details">
+                        <span class="exercise-sets">3 séries</span>
+                        <span class="exercise-reps">12 repetições</span>
+                    </div>
+                </div>
+                
+                <div class="exercise-item">
+                    <div class="exercise-name">Rosca direta</div>
+                    <div class="exercise-details">
+                        <span class="exercise-sets">3 séries</span>
+                        <span class="exercise-reps">10-12 repetições</span>
+                    </div>
+                </div>
+                
+                <div class="exercise-item">
+                    <div class="exercise-name">Rosca alternada</div>
+                    <div class="exercise-details">
+                        <span class="exercise-sets">3 séries</span>
+                        <span class="exercise-reps">12 repetições</span>
+                    </div>
+                </div>
+                
+                <div class="exercise-item">
+                    <div class="exercise-name">Crucifixo inverso na máquina ou fly posterior com halteres</div>
+                    <div class="exercise-details">
+                        <span class="exercise-sets">3 séries</span>
+                        <span class="exercise-reps">20 repetições</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Legs A -->
+        <div class="workout-container">
+            <div class="workout-header">
+                <h2><i class="fas fa-walking"></i> LEGS A</h2>
+                <div class="workout-info">Quadríceps, Posterior, Glúteo, Panturrilha</div>
+            </div>
+            
+            <div class="workout-content">
+                <div class="exercise-item">
+                    <div class="exercise-name">Agachamento livre (com barra)</div>
+                    <div class="exercise-details">
+                        <span class="exercise-sets">4 séries</span>
+                        <span class="exercise-reps">8-10 repetições</span>
+                    </div>
+                </div>
+                
+                <div class="exercise-item">
+                    <div class="exercise-name">Stiff com barra</div>
+                    <div class="exercise-details">
+                        <span class="exercise-sets">4 séries</span>
+                        <span class="exercise-reps">10 repetições</span>
+                    </div>
+                </div>
+                
+                <div class="exercise-item">
+                    <div class="exercise-name">Leg press</div>
+                    <div class="exercise-details">
+                        <span class="exercise-sets">3 séries</span>
+                        <span class="exercise-reps">12 repetições</span>
+                    </div>
+                </div>
+                
+                <div class="exercise-item">
+                    <div class="exercise-name">Cadeira extensora</div>
+                    <div class="exercise-details">
+                        <span class="exercise-sets">3 séries</span>
+                        <span class="exercise-reps">12 repetições</span>
+                    </div>
+                </div>
+                
+                <div class="exercise-item">
+                    <div class="exercise-name">Mesa flexora</div>
+                    <div class="exercise-details">
+                        <span class="exercise-sets">3 séries</span>
+                        <span class="exercise-reps">12 repetições</span>
+                    </div>
+                </div>
+                
+                <div class="exercise-item">
+                    <div class="exercise-name">Panturrilha em pé</div>
+                    <div class="exercise-details">
+                        <span class="exercise-sets">4 séries</span>
+                        <span class="exercise-reps">20 repetições</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <!-- Push B -->
+        <div class="workout-container">
+            <div class="workout-header">
+                <h2><i class="fas fa-angle-double-up"></i> PUSH B</h2>
+                <div class="workout-info">Peito, Ombro, Tríceps</div>
+            </div>
+            
+            <div class="workout-content">
+                <div class="exercise-item">
+                    <div class="exercise-name">Supino inclinado com halteres</div>
+                    <div class="exercise-details">
+                        <span class="exercise-sets">4 séries</span>
+                        <span class="exercise-reps">10 repetições</span>
+                    </div>
+                </div>
+                
+                <div class="exercise-item">
+                    <div class="exercise-name">Supino reto com barra</div>
+                    <div class="exercise-details">
+                        <span class="exercise-sets">3 séries</span>
+                        <span class="exercise-reps">8-10 repetições</span>
+                    </div>
+                </div>
+                
+                <div class="exercise-item">
+                    <div class="exercise-name">Arnold press</div>
+                    <div class="exercise-details">
+                        <span class="exercise-sets">3 séries</span>
+                        <span class="exercise-reps">10 repetições</span>
+                    </div>
+                </div>
+                
+                <div class="exercise-item">
+                    <div class="exercise-name">Crucifixo inclinado com halteres</div>
+                    <div class="exercise-details">
+                        <span class="exercise-sets">3 séries</span>
+                        <span class="exercise-reps">12 repetições</span>
+                    </div>
+                </div>
+                
+                <div class="exercise-item">
+                    <div class="exercise-name">Elevação lateral</div>
+                    <div class="exercise-details">
+                        <span class="exercise-sets">3 séries</span>
+                        <span class="exercise-reps">20 repetições</span>
+                    </div>
+                </div>
+                
+                <div class="exercise-item">
+                    <div class="exercise-name">Tríceps pulley com barra</div>
+                    <div class="exercise-details">
+                        <span class="exercise-sets">3 séries</span>
+                        <span class="exercise-reps">12 repetições</span>
+                    </div>
+                </div>
+                
+                <div class="exercise-item">
+                    <div class="exercise-name">Tríceps francês com halter (duas mãos)</div>
+                    <div class="exercise-details">
+                        <span class="exercise-sets">3 séries</span>
+                        <span class="exercise-reps">12 repetições</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Pull B -->
+        <div class="workout-container">
+            <div class="workout-header">
+                <h2><i class="fas fa-angle-double-down"></i> PULL B</h2>
+                <div class="workout-info">Costas, Bíceps, Posterior de Ombro</div>
+            </div>
+            
+            <div class="workout-content">
+                <div class="exercise-item">
+                    <div class="exercise-name">Pulley frente pegada neutra</div>
+                    <div class="exercise-details">
+                        <span class="exercise-sets">4 séries</span>
+                        <span class="exercise-reps">10-12 repetições</span>
+                    </div>
+                </div>
+                
+                <div class="exercise-item">
+                    <div class="exercise-name">Remada curvada supinada</div>
+                    <div class="exercise-details">
+                        <span class="exercise-sets">4 séries</span>
+                        <span class="exercise-reps">10 repetições</span>
+                    </div>
+                </div>
+                
+                <div class="exercise-item">
+                    <div class="exercise-name">Remada baixa</div>
+                    <div class="exercise-details">
+                        <span class="exercise-sets">3 séries</span>
+                        <span class="exercise-reps">12 repetições</span>
+                    </div>
+                </div>
+                
+                <div class="exercise-item">
+                    <div class="exercise-name">Rosca martelo</div>
+                    <div class="exercise-details">
+                        <span class="exercise-sets">3 séries</span>
+                        <span class="exercise-reps">12 repetições</span>
+                    </div>
+                </div>
+                
+                <div class="exercise-item">
+                    <div class="exercise-name">Rosca concentrada</div>
+                    <div class="exercise-details">
+                        <span class="exercise-sets">2 séries</span>
+                        <span class="exercise-reps">15 repetições</span>
+                    </div>
+                </div>
+                
+                <div class="exercise-item">
+                    <div class="exercise-name">Crucifixo inverso na máquina ou fly posterior com halteres</div>
+                    <div class="exercise-details">
+                        <span class="exercise-sets">3 séries</span>
+                        <span class="exercise-reps">20 repetições</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Legs B -->
+        <div class="workout-container">
+            <div class="workout-header">
+                <h2><i class="fas fa-walking"></i> LEGS B + ABDÔMEN/CARDIO</h2>
+                <div class="workout-info">Quadríceps, Posterior, Glúteo, Panturrilha, Abdômen</div>
+            </div>
+            
+            <div class="workout-content">
+                <div class="exercise-item">
+                    <div class="exercise-name">Agachamento livre (com barra)</div>
+                    <div class="exercise-details">
+                        <span class="exercise-sets">4 séries</span>
+                        <span class="exercise-reps">10 repetições</span>
+                    </div>
+                </div>
+                
+                <div class="exercise-item">
+                    <div class="exercise-name">Cadeira extensora</div>
+                    <div class="exercise-details">
+                        <span class="exercise-sets">3 séries</span>
+                        <span class="exercise-reps">15 repetições</span>
+                    </div>
+                </div>
+                
+                <div class="exercise-item">
+                    <div class="exercise-name">Stiff com barra</div>
+                    <div class="exercise-details">
+                        <span class="exercise-sets">3 séries</span>
+                        <span class="exercise-reps">12 repetições</span>
+                    </div>
+                </div>
+                
+                <div class="exercise-item">
+                    <div class="exercise-name">Mesa flexora</div>
+                    <div class="exercise-details">
+                        <span class="exercise-sets">3 séries</span>
+                        <span class="exercise-reps">12 repetições</span>
+                    </div>
+                </div>
+                
+                <div class="exercise-item">
+                    <div class="exercise-name">Panturrilha sentada</div>
+                    <div class="exercise-details">
+                        <span class="exercise-sets">4 séries</span>
+                        <span class="exercise-reps">15-20 repetições</span>
+                    </div>
+                </div>
+                
+                <div class="exercise-item">
+                    <div class="exercise-name">Abdominal infra (elevação de pernas)</div>
+                    <div class="exercise-details">
+                        <span class="exercise-sets">3 séries</span>
+                        <span class="exercise-reps">20 repetições</span>
+                    </div>
+                </div>
+                
+                <div class="exercise-item">
+                    <div class="exercise-name">Prancha</div>
+                    <div class="exercise-details">
+                        <span class="exercise-sets">3 séries</span>
+                        <span class="exercise-reps">30-60 segundos</span>
+                    </div>
+                </div>
+                
+                <div class="exercise-item cardio-item">
+                    <div class="exercise-name">Cardio opcional: moderado (bike, esteira, escada)</div>
+                    <div class="exercise-details">
+                        <span class="exercise-duration">20-30 minutos</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Instruções Finais -->
+        <div class="instructions-container">
+            <div class="instructions-header">
+                <h2><i class="fas fa-brain"></i> INSTRUÇÕES FINAIS</h2>
+            </div>
+            
+            <div class="instructions-content">
+                <div class="instruction-item">
+                    <div class="instruction-title">Carga:</div>
+                    <div class="instruction-text">RIR 1-2 (faça até sentir que faltaria 1 a 2 repetições antes da falha)</div>
+                </div>
+                
+                <div class="instruction-item">
+                    <div class="instruction-title">Intervalo:</div>
+                    <div class="instruction-text">45-75 segundos (exceto compostos — 90s)</div>
+                </div>
+                
+                <div class="instruction-item">
+                    <div class="instruction-title">Evolução:</div>
+                    <div class="instruction-text">Sempre tente aumentar a carga ou repetições mantendo a forma</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container footer-content">
+            <p class="copyright">&copy; 2025 Meu Treino Personalizado</p>
+            <p class="description">Plataforma desenvolvida para gerenciamento personalizado de treino e acompanhamento físico</p>
+        </div>
+    </footer>
+    
+    <div class="floating-buttons">
+        <button class="floating-button theme-button" id="theme-toggle-float" aria-label="Alternar modo escuro">
+            <span class="tooltip">Alternar modo</span>
+            <i class="fas fa-moon"></i>
+        </button>
+        <button class="floating-button export-button" onclick="generatePDF()" aria-label="Exportar para PDF">
+            <span class="tooltip">Exportar PDF</span>
+            <i class="fas fa-file-pdf"></i>
+        </button>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="script.js"></script>
+</body>
+</html> 

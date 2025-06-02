@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="pt-br" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exames de Sangue Recomendados</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-bg"></div>
+        <div class="header-buttons">
+            <a href="index.html" class="header-button diet-button">
+                <i class="fas fa-utensils"></i>
+                <span>Dieta</span>
+            </a>
+            <a href="treino.html" class="header-button training-button">
+                <i class="fas fa-dumbbell"></i>
+                <span>Treino</span>
+            </a>
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+        <div class="hero-content">
+            <h1>Exames de Sangue Recomendados</h1>
+            <p class="hero-subtitle">Guia completo para monitoramento da saúde e performance</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="summary">
+            <h2>Visão Geral</h2>
+            <p>Este guia apresenta os principais exames de sangue para monitorar sua saúde de forma abrangente, com foco em desempenho físico, prevenção e detecção precoce de problemas.</p>
+            <p>Recomendamos realizar um check-up completo a cada 6-12 meses, ou conforme recomendação médica.</p>
+        </div>
+        
+        <!-- Hemograma Completo -->
+        <div class="exam-container">
+            <div class="exam-header">
+                <h2><i class="fas fa-tint"></i> Hemograma Completo (CBC)</h2>
+                <div class="exam-info">Avaliação Sanguínea Básica</div>
+            </div>
+            
+            <div class="exam-content">
+                <div class="exam-item">
+                    <div class="exam-name">Leucócitos totais e diferencial</div>
+                    <div class="exam-description">Avalia infecções, inflamações e resposta imune</div>
+                </div>
+                
+                <div class="exam-item">
+                    <div class="exam-name">Eritrócitos, hemoglobina e hematócrito</div>
+                    <div class="exam-description">Verifica anemia e capacidade de transporte de oxigênio</div>
+                </div>
+                
+                <div class="exam-item">
+                    <div class="exam-name">Plaquetas e MPV</div>
+                    <div class="exam-description">Checa coagulação e risco hemorrágico/trombótico</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Painel Metabólico Básico -->
+        <div class="exam-container">
+            <div class="exam-header">
+                <h2><i class="fas fa-flask"></i> Painel Metabólico Básico (BMP)</h2>
+                <div class="exam-info">Perfil Bioquímico Essencial</div>
+            </div>
+            
+            <div class="exam-content">
+                <div class="exam-item">
+                    <div class="exam-name">Glicose</div>
+                    <div class="exam-description">Triagem de diabetes e resistência insulínica</div>
+                </div>
+                
+                <div class="exam-item">
+                    <div class="exam-name">Eletrólitos</div>
+                    <div class="exam-description">Sódio, potássio, cloreto, bicarbonato - equilíbrio ácido-base e hidratação</div>
+                </div>
+                
+                <div class="exam-item">
+                    <div class="exam-name">Ureia (BUN) e creatinina</div>
+                    <div class="exam-description">Função renal básica</div>
+                </div>
+                
+                <div class="exam-item">
+                    <div class="exam-name">Cálcio</div>
+                    <div class="exam-description">Saúde óssea e função neuromuscular</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Painel Metabólico Completo -->
+        <div class="exam-container">
+            <div class="exam-header">
+                <h2><i class="fas fa-vials"></i> Painel Metabólico Completo (CMP)</h2>
+                <div class="exam-info">Perfil Bioquímico Avançado</div>
+            </div>
+            
+            <div class="exam-content">
+                <div class="exam-item">
+                    <div class="exam-name">Albumina e proteínas totais</div>
+                    <div class="exam-description">Nutrição e função hepática</div>
+                </div>
+                
+                <div class="exam-item">
+                    <div class="exam-name">TGO (AST) e TGP (ALT)</div>
+                    <div class="exam-description">Lesão hepática</div>
+                </div>
+                
+                <div class="exam-item">
+                    <div class="exam-name">Fosfatase alcalina (ALP) e bilirrubinas</div>
+                    <div class="exam-description">Função biliar e hepática</div>
+                </div>
+                
+                <div class="exam-note">
+                    <i class="fas fa-info-circle"></i> Inclui todos os testes do Painel Metabólico Básico mais os acima listados
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <!-- Perfil Lipídico -->
+        <div class="exam-container">
+            <div class="exam-header">
+                <h2><i class="fas fa-heartbeat"></i> Perfil Lipídico</h2>
+                <div class="exam-info">Avaliação Cardiovascular</div>
+            </div>
+            
+            <div class="exam-content">
+                <div class="exam-item">
+                    <div class="exam-name">Colesterol Total, LDL, HDL e triglicerídeos</div>
+                    <div class="exam-description">Avaliação de risco cardiovascular</div>
+                </div>
+                
+                <div class="exam-item">
+                    <div class="exam-name">Apolipoproteína A1 e B</div>
+                    <div class="exam-description">Opcional para quem quer refino na avaliação cardiovascular</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Função Tireoidiana -->
+        <div class="exam-container">
+            <div class="exam-header">
+                <h2><i class="fas fa-thermometer-half"></i> Função Tireoidiana</h2>
+                <div class="exam-info">Metabolismo Basal</div>
+            </div>
+            
+            <div class="exam-content">
+                <div class="exam-item">
+                    <div class="exam-name">TSH, T4 livre e T3 livre</div>
+                    <div class="exam-description">Diagnosticar hipo/hipertireoidismo</div>
+                </div>
+                
+                <div class="exam-item">
+                    <div class="exam-name">Anticorpos antitireoidianos (TPO, TG)</div>
+                    <div class="exam-description">Se histórico familiar ou sintomas</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Glicemia Avançada -->
+        <div class="exam-container">
+            <div class="exam-header">
+                <h2><i class="fas fa-chart-line"></i> Glicemia Avançada e Metabolismo</h2>
+                <div class="exam-info">Controle Metabólico</div>
+            </div>
+            
+            <div class="exam-content">
+                <div class="exam-item">
+                    <div class="exam-name">Hemoglobina A1c</div>
+                    <div class="exam-description">Controle glicêmico dos últimos 3 meses</div>
+                </div>
+                
+                <div class="exam-item">
+                    <div class="exam-name">Insulina em jejum e HOMA-IR</div>
+                    <div class="exam-description">Índice de resistência insulínica</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Hormônios Sexuais -->
+        <div class="exam-container">
+            <div class="exam-header">
+                <h2><i class="fas fa-venus-mars"></i> Hormônios Sexuais e Relacionados</h2>
+                <div class="exam-info">Desempenho e Recuperação</div>
+            </div>
+            
+            <div class="exam-content">
+                <div class="exam-item">
+                    <div class="exam-name">Testosterona total e livre, SHBG, DHEA-S</div>
+                    <div class="exam-description">Performance, massa muscular e libido</div>
+                </div>
+                
+                <div class="exam-item">
+                    <div class="exam-name">Estradiol e progesterona</div>
+                    <div class="exam-description">Em homens avalia aromatização; em mulheres, ciclo menstrual</div>
+                </div>
+                
+                <div class="exam-item">
+                    <div class="exam-name">Cortisol matinal</div>
+                    <div class="exam-description">Nível de estresse e recuperação</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <!-- Vitaminas e Minerais -->
+        <div class="exam-container">
+            <div class="exam-header">
+                <h2><i class="fas fa-apple-alt"></i> Vitaminas e Minerais</h2>
+                <div class="exam-info">Suporte Metabólico</div>
+            </div>
+            
+            <div class="exam-content">
+                <div class="exam-item">
+                    <div class="exam-name">25-hidroxivitamina D</div>
+                    <div class="exam-description">Status da vitamina D</div>
+                </div>
+                
+                <div class="exam-item">
+                    <div class="exam-name">Vitamina B12 e folato</div>
+                    <div class="exam-description">Integridade neurológica e hematológica</div>
+                </div>
+                
+                <div class="exam-item">
+                    <div class="exam-name">Ferro, ferritina e transferrina</div>
+                    <div class="exam-description">Anemia por deficiência e status de ferro</div>
+                </div>
+                
+                <div class="exam-item">
+                    <div class="exam-name">Magnésio, zinco e cálcio iônico</div>
+                    <div class="exam-description">Suporte metabólico, sono e imunidade</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Marcadores de Inflamação -->
+        <div class="exam-container">
+            <div class="exam-header">
+                <h2><i class="fas fa-fire"></i> Marcadores de Inflamação e Coagulação</h2>
+                <div class="exam-info">Estresse Sistêmico</div>
+            </div>
+            
+            <div class="exam-content">
+                <div class="exam-item">
+                    <div class="exam-name">Proteína C-reativa (PCR) ultra-sensível</div>
+                    <div class="exam-description">Inflamação crônica e risco cardiovascular</div>
+                </div>
+                
+                <div class="exam-item">
+                    <div class="exam-name">Velocidade de hemossedimentação (VHS)</div>
+                    <div class="exam-description">Inflamação sistêmica</div>
+                </div>
+                
+                <div class="exam-item">
+                    <div class="exam-name">Tempo de protrombina (PT/INR) e TTPA</div>
+                    <div class="exam-description">Avaliar coagulação</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Testes Avançados -->
+        <div class="exam-container">
+            <div class="exam-header">
+                <h2><i class="fas fa-microscope"></i> Outros Testes Avançados</h2>
+                <div class="exam-info">Opcionais para Avaliação Detalhada</div>
+            </div>
+            
+            <div class="exam-content">
+                <div class="exam-item">
+                    <div class="exam-name">Homocisteína</div>
+                    <div class="exam-description">Risco cardiovascular</div>
+                </div>
+                
+                <div class="exam-item">
+                    <div class="exam-name">PCR-VHS + Ferritina</div>
+                    <div class="exam-description">Doenças autoimunes ou inflamação crônica</div>
+                </div>
+                
+                <div class="exam-item">
+                    <div class="exam-name">Teste de função hepática completo</div>
+                    <div class="exam-description">GGT, LDH, 5' nucleotidase</div>
+                </div>
+                
+                <div class="exam-item">
+                    <div class="exam-name">Painel de hormônios adrenais</div>
+                    <div class="exam-description">Cortisol salivar ou 24h</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Recomendações Adicionais -->
+        <div class="recommendations-container">
+            <div class="recommendations-header">
+                <h2><i class="fas fa-clipboard-list"></i> Recomendações Adicionais</h2>
+            </div>
+            
+            <div class="recommendations-content">
+                <div class="recommendation-item">
+                    <div class="recommendation-title">Frequência de Testes</div>
+                    <div class="recommendation-text">
+                        <p>Para indivíduos saudáveis em fase de treino regular:</p>
+                        <ul>
+                            <li>Hemograma e painéis metabólicos: a cada 6 meses</li>
+                            <li>Perfil hormonal: anualmente ou a cada 6 meses se em fase de otimização</li>
+                            <li>Vitaminas e minerais: anualmente ou após modificações nutricionais significativas</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="recommendation-item">
+                    <div class="recommendation-title">Interpretação de Resultados</div>
+                    <div class="recommendation-text">
+                        <p>Sempre compare seus resultados com:</p>
+                        <ul>
+                            <li>Valores de referência do laboratório</li>
+                            <li>Seus resultados anteriores (tendências são mais importantes que valores isolados)</li>
+                            <li>Valores ótimos para performance (que podem diferir dos valores de referência padrão)</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="recommendation-item">
+                    <div class="recommendation-title">Consulta Especializada</div>
+                    <div class="recommendation-text">
+                        <p>Recomenda-se a interpretação dos resultados por um profissional especializado, idealmente com experiência em medicina esportiva e nutricional, para otimização de saúde e performance.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container footer-content">
+            <p class="copyright">&copy; 2025 Meus Exames Recomendados</p>
+            <p class="description">Plataforma desenvolvida para gerenciamento personalizado de saúde e acompanhamento médico</p>
+        </div>
+    </footer>
+    
+    <div class="floating-buttons">
+        <button class="floating-button theme-button" id="theme-toggle-float" aria-label="Alternar modo escuro">
+            <span class="tooltip">Alternar modo</span>
+            <i class="fas fa-moon"></i>
+        </button>
+        <button class="floating-button export-button" onclick="generatePDF()" aria-label="Exportar para PDF">
+            <span class="tooltip">Exportar PDF</span>
+            <i class="fas fa-file-pdf"></i>
+        </button>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="script.js"></script>
+</body>
+</html> 
