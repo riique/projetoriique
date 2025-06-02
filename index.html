@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br" data-theme="light">
+<html lang="pt-br" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -61,9 +61,7 @@
                 <i class="fas fa-vial"></i>
                 <span>Exames</span>
             </a>
-            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
-                <i class="fas fa-moon"></i>
-            </button>
+
         </div>
         <div class="hero-content">
             <div class="hero-icon">
@@ -238,7 +236,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="plan-row" data-day="1" onclick="selectPlan(1)">
+                                <tr class="plan-row" data-day="1" data-plan='{"breakfast":"A","lunch":"A","snack":"A","dinner":"A","supper":"A"}'>
                                     <td class="day-cell">
                                         <div class="day-number">1</div>
                                         <div class="day-label">Segunda</div>
@@ -246,22 +244,19 @@
                                     <td class="meal-option" data-meal="breakfast">A</td>
                                     <td class="meal-option" data-meal="lunch">A</td>
                                     <td class="meal-option" data-meal="snack">A</td>
-                                    <td class="meal-option" data-meal="dinner">C</td>
+                                    <td class="meal-option" data-meal="dinner">A</td>
                                     <td class="meal-option" data-meal="supper">A</td>
-                                    <td class="macro-value calories">1.645</td>
-                                    <td class="macro-value protein">151,8</td>
-                                    <td class="macro-value carb">158,2</td>
-                                    <td class="macro-value fat">45,0</td>
+                                    <td class="macro-value calories" data-calories="1645">1.645</td>
+                                    <td class="macro-value protein" data-protein="151.8">151,8</td>
+                                    <td class="macro-value carb" data-carbs="158.2">158,2</td>
+                                    <td class="macro-value fat" data-fats="45.0">45,0</td>
                                     <td class="action-cell">
-                                        <button class="action-btn select-btn" onclick="selectPlan(1)" title="Selecionar este plano">
+                                        <button class="action-btn select-btn" onclick="event.stopPropagation(); selectPlan(1)" title="Selecionar este plano">
                                             <i class="fas fa-check"></i>
-                                        </button>
-                                        <button class="action-btn favorite-btn" onclick="toggleFavorite(1)" title="Favoritar">
-                                            <i class="far fa-heart"></i>
                                         </button>
                                     </td>
                                 </tr>
-                                <tr class="plan-row" data-day="2" onclick="selectPlan(2)">
+                                <tr class="plan-row" data-day="2" data-plan='{"breakfast":"A","lunch":"A","snack":"A","dinner":"C","supper":"B"}'>
                                     <td class="day-cell">
                                         <div class="day-number">2</div>
                                         <div class="day-label">Terça</div>
@@ -271,20 +266,17 @@
                                     <td class="meal-option" data-meal="snack">A</td>
                                     <td class="meal-option" data-meal="dinner">C</td>
                                     <td class="meal-option" data-meal="supper">B</td>
-                                    <td class="macro-value calories">1.678</td>
-                                    <td class="macro-value protein">153,1</td>
-                                    <td class="macro-value carb">151,8</td>
-                                    <td class="macro-value fat">52,2</td>
+                                    <td class="macro-value calories" data-calories="1678">1.678</td>
+                                    <td class="macro-value protein" data-protein="153.1">153,1</td>
+                                    <td class="macro-value carb" data-carbs="151.8">151,8</td>
+                                    <td class="macro-value fat" data-fats="52.2">52,2</td>
                                     <td class="action-cell">
-                                        <button class="action-btn select-btn" onclick="selectPlan(2)" title="Selecionar este plano">
+                                        <button class="action-btn select-btn" onclick="event.stopPropagation(); selectPlan(2)" title="Selecionar este plano">
                                             <i class="fas fa-check"></i>
-                                        </button>
-                                        <button class="action-btn favorite-btn" onclick="toggleFavorite(2)" title="Favoritar">
-                                            <i class="far fa-heart"></i>
                                         </button>
                                     </td>
                                 </tr>
-                                <tr class="plan-row" data-day="3" onclick="selectPlan(3)">
+                                <tr class="plan-row" data-day="3" data-plan='{"breakfast":"A","lunch":"A","snack":"A","dinner":"D","supper":"A"}'>
                                     <td class="day-cell">
                                         <div class="day-number">3</div>
                                         <div class="day-label">Quarta</div>
@@ -294,20 +286,17 @@
                                     <td class="meal-option" data-meal="snack">A</td>
                                     <td class="meal-option" data-meal="dinner">D</td>
                                     <td class="meal-option" data-meal="supper">A</td>
-                                    <td class="macro-value calories">1.650</td>
-                                    <td class="macro-value protein">153,6</td>
-                                    <td class="macro-value carb">197,5</td>
-                                    <td class="macro-value fat">24,4</td>
+                                    <td class="macro-value calories" data-calories="1650">1.650</td>
+                                    <td class="macro-value protein" data-protein="153.6">153,6</td>
+                                    <td class="macro-value carb" data-carbs="197.5">197,5</td>
+                                    <td class="macro-value fat" data-fats="24.4">24,4</td>
                                     <td class="action-cell">
-                                        <button class="action-btn select-btn" onclick="selectPlan(3)" title="Selecionar este plano">
+                                        <button class="action-btn select-btn" onclick="event.stopPropagation(); selectPlan(3)" title="Selecionar este plano">
                                             <i class="fas fa-check"></i>
-                                        </button>
-                                        <button class="action-btn favorite-btn" onclick="toggleFavorite(3)" title="Favoritar">
-                                            <i class="far fa-heart"></i>
                                         </button>
                                     </td>
                                 </tr>
-                                <tr class="plan-row" data-day="4" onclick="selectPlan(4)">
+                                <tr class="plan-row" data-day="4" data-plan='{"breakfast":"A","lunch":"A","snack":"A","dinner":"D","supper":"B"}'>
                                     <td class="day-cell">
                                         <div class="day-number">4</div>
                                         <div class="day-label">Quinta</div>
@@ -317,20 +306,17 @@
                                     <td class="meal-option" data-meal="snack">A</td>
                                     <td class="meal-option" data-meal="dinner">D</td>
                                     <td class="meal-option" data-meal="supper">B</td>
-                                    <td class="macro-value calories">1.682</td>
-                                    <td class="macro-value protein">154,9</td>
-                                    <td class="macro-value carb">191,1</td>
-                                    <td class="macro-value fat">31,6</td>
+                                    <td class="macro-value calories" data-calories="1682">1.682</td>
+                                    <td class="macro-value protein" data-protein="154.9">154,9</td>
+                                    <td class="macro-value carb" data-carbs="191.1">191,1</td>
+                                    <td class="macro-value fat" data-fats="31.6">31,6</td>
                                     <td class="action-cell">
-                                        <button class="action-btn select-btn" onclick="selectPlan(4)" title="Selecionar este plano">
+                                        <button class="action-btn select-btn" onclick="event.stopPropagation(); selectPlan(4)" title="Selecionar este plano">
                                             <i class="fas fa-check"></i>
-                                        </button>
-                                        <button class="action-btn favorite-btn" onclick="toggleFavorite(4)" title="Favoritar">
-                                            <i class="far fa-heart"></i>
                                         </button>
                                     </td>
                                 </tr>
-                                <tr class="plan-row" data-day="5" onclick="selectPlan(5)">
+                                <tr class="plan-row" data-day="5" data-plan='{"breakfast":"A","lunch":"A","snack":"A","dinner":"E","supper":"B"}'>
                                     <td class="day-cell">
                                         <div class="day-number">5</div>
                                         <div class="day-label">Sexta</div>
@@ -340,20 +326,17 @@
                                     <td class="meal-option" data-meal="snack">A</td>
                                     <td class="meal-option" data-meal="dinner">E</td>
                                     <td class="meal-option" data-meal="supper">B</td>
-                                    <td class="macro-value calories">1.640</td>
-                                    <td class="macro-value protein">146,1</td>
-                                    <td class="macro-value carb">189,2</td>
-                                    <td class="macro-value fat">35,6</td>
+                                    <td class="macro-value calories" data-calories="1640">1.640</td>
+                                    <td class="macro-value protein" data-protein="146.1">146,1</td>
+                                    <td class="macro-value carb" data-carbs="189.2">189,2</td>
+                                    <td class="macro-value fat" data-fats="35.6">35,6</td>
                                     <td class="action-cell">
-                                        <button class="action-btn select-btn" onclick="selectPlan(5)" title="Selecionar este plano">
+                                        <button class="action-btn select-btn" onclick="event.stopPropagation(); selectPlan(5)" title="Selecionar este plano">
                                             <i class="fas fa-check"></i>
-                                        </button>
-                                        <button class="action-btn favorite-btn" onclick="toggleFavorite(5)" title="Favoritar">
-                                            <i class="far fa-heart"></i>
                                         </button>
                                     </td>
                                 </tr>
-                                <tr class="plan-row" data-day="6" onclick="selectPlan(6)">
+                                <tr class="plan-row" data-day="6" data-plan='{"breakfast":"A","lunch":"A","snack":"E","dinner":"C","supper":"B"}'>
                                     <td class="day-cell">
                                         <div class="day-number">6</div>
                                         <div class="day-label">Sábado</div>
@@ -363,20 +346,17 @@
                                     <td class="meal-option" data-meal="snack">E</td>
                                     <td class="meal-option" data-meal="dinner">C</td>
                                     <td class="meal-option" data-meal="supper">B</td>
-                                    <td class="macro-value calories">1.649</td>
-                                    <td class="macro-value protein">153,8</td>
-                                    <td class="macro-value carb">167,3</td>
-                                    <td class="macro-value fat">52,3</td>
+                                    <td class="macro-value calories" data-calories="1649">1.649</td>
+                                    <td class="macro-value protein" data-protein="153.8">153,8</td>
+                                    <td class="macro-value carb" data-carbs="167.3">167,3</td>
+                                    <td class="macro-value fat" data-fats="52.3">52,3</td>
                                     <td class="action-cell">
-                                        <button class="action-btn select-btn" onclick="selectPlan(6)" title="Selecionar este plano">
+                                        <button class="action-btn select-btn" onclick="event.stopPropagation(); selectPlan(6)" title="Selecionar este plano">
                                             <i class="fas fa-check"></i>
-                                        </button>
-                                        <button class="action-btn favorite-btn" onclick="toggleFavorite(6)" title="Favoritar">
-                                            <i class="far fa-heart"></i>
                                         </button>
                                     </td>
                                 </tr>
-                                <tr class="plan-row" data-day="7" onclick="selectPlan(7)">
+                                <tr class="plan-row" data-day="7" data-plan='{"breakfast":"A","lunch":"A","snack":"E","dinner":"D","supper":"B"}'>
                                     <td class="day-cell">
                                         <div class="day-number">7</div>
                                         <div class="day-label">Domingo</div>
@@ -386,20 +366,17 @@
                                     <td class="meal-option" data-meal="snack">E</td>
                                     <td class="meal-option" data-meal="dinner">D</td>
                                     <td class="meal-option" data-meal="supper">B</td>
-                                    <td class="macro-value calories">1.654</td>
-                                    <td class="macro-value protein">155,7</td>
-                                    <td class="macro-value carb">206,7</td>
-                                    <td class="macro-value fat">31,8</td>
+                                    <td class="macro-value calories" data-calories="1654">1.654</td>
+                                    <td class="macro-value protein" data-protein="155.7">155,7</td>
+                                    <td class="macro-value carb" data-carbs="206.7">206,7</td>
+                                    <td class="macro-value fat" data-fats="31.8">31,8</td>
                                     <td class="action-cell">
-                                        <button class="action-btn select-btn" onclick="selectPlan(7)" title="Selecionar este plano">
+                                        <button class="action-btn select-btn" onclick="event.stopPropagation(); selectPlan(7)" title="Selecionar este plano">
                                             <i class="fas fa-check"></i>
-                                        </button>
-                                        <button class="action-btn favorite-btn" onclick="toggleFavorite(7)" title="Favoritar">
-                                            <i class="far fa-heart"></i>
                                         </button>
                                     </td>
                                 </tr>
-                                <tr class="plan-row" data-day="8" onclick="selectPlan(8)">
+                                <tr class="plan-row" data-day="8" data-plan='{"breakfast":"A","lunch":"B","snack":"C","dinner":"C","supper":"C"}'>
                                     <td class="day-cell">
                                         <div class="day-number">8</div>
                                         <div class="day-label">Variação 1</div>
@@ -409,20 +386,17 @@
                                     <td class="meal-option" data-meal="snack">C</td>
                                     <td class="meal-option" data-meal="dinner">C</td>
                                     <td class="meal-option" data-meal="supper">C</td>
-                                    <td class="macro-value calories">1.671</td>
-                                    <td class="macro-value protein">155,7</td>
-                                    <td class="macro-value carb">131,1</td>
-                                    <td class="macro-value fat">49,1</td>
+                                    <td class="macro-value calories" data-calories="1671">1.671</td>
+                                    <td class="macro-value protein" data-protein="155.7">155,7</td>
+                                    <td class="macro-value carb" data-carbs="131.1">131,1</td>
+                                    <td class="macro-value fat" data-fats="49.1">49,1</td>
                                     <td class="action-cell">
-                                        <button class="action-btn select-btn" onclick="selectPlan(8)" title="Selecionar este plano">
+                                        <button class="action-btn select-btn" onclick="event.stopPropagation(); selectPlan(8)" title="Selecionar este plano">
                                             <i class="fas fa-check"></i>
-                                        </button>
-                                        <button class="action-btn favorite-btn" onclick="toggleFavorite(8)" title="Favoritar">
-                                            <i class="far fa-heart"></i>
                                         </button>
                                     </td>
                                 </tr>
-                                <tr class="plan-row" data-day="9" onclick="selectPlan(9)">
+                                <tr class="plan-row" data-day="9" data-plan='{"breakfast":"A","lunch":"B","snack":"C","dinner":"D","supper":"C"}'>
                                     <td class="day-cell">
                                         <div class="day-number">9</div>
                                         <div class="day-label">Variação 2</div>
@@ -432,20 +406,17 @@
                                     <td class="meal-option" data-meal="snack">C</td>
                                     <td class="meal-option" data-meal="dinner">D</td>
                                     <td class="meal-option" data-meal="supper">C</td>
-                                    <td class="macro-value calories">1.676</td>
-                                    <td class="macro-value protein">157,5</td>
-                                    <td class="macro-value carb">170,5</td>
-                                    <td class="macro-value fat">28,5</td>
+                                    <td class="macro-value calories" data-calories="1676">1.676</td>
+                                    <td class="macro-value protein" data-protein="157.5">157,5</td>
+                                    <td class="macro-value carb" data-carbs="170.5">170,5</td>
+                                    <td class="macro-value fat" data-fats="28.5">28,5</td>
                                     <td class="action-cell">
-                                        <button class="action-btn select-btn" onclick="selectPlan(9)" title="Selecionar este plano">
+                                        <button class="action-btn select-btn" onclick="event.stopPropagation(); selectPlan(9)" title="Selecionar este plano">
                                             <i class="fas fa-check"></i>
-                                        </button>
-                                        <button class="action-btn favorite-btn" onclick="toggleFavorite(9)" title="Favoritar">
-                                            <i class="far fa-heart"></i>
                                         </button>
                                     </td>
                                 </tr>
-                                <tr class="plan-row best-plan" data-day="10" onclick="selectPlan(10)">
+                                <tr class="plan-row best-plan" data-day="10" data-plan='{"breakfast":"A","lunch":"B","snack":"E","dinner":"D","supper":"B"}'>
                                     <td class="day-cell">
                                         <div class="day-number">10</div>
                                         <div class="day-label">Variação 3</div>
@@ -459,16 +430,13 @@
                                     <td class="meal-option" data-meal="snack">E</td>
                                     <td class="meal-option" data-meal="dinner">D</td>
                                     <td class="meal-option" data-meal="supper">B</td>
-                                    <td class="macro-value calories">1.670</td>
-                                    <td class="macro-value protein">146,6</td>
-                                    <td class="macro-value carb">212,6</td>
-                                    <td class="macro-value fat">36,1</td>
+                                    <td class="macro-value calories" data-calories="1670">1.670</td>
+                                    <td class="macro-value protein" data-protein="146.6">146,6</td>
+                                    <td class="macro-value carb" data-carbs="212.6">212,6</td>
+                                    <td class="macro-value fat" data-fats="36.1">36,1</td>
                                     <td class="action-cell">
-                                        <button class="action-btn select-btn" onclick="selectPlan(10)" title="Selecionar este plano">
+                                        <button class="action-btn select-btn" onclick="event.stopPropagation(); selectPlan(10)" title="Selecionar este plano">
                                             <i class="fas fa-check"></i>
-                                        </button>
-                                        <button class="action-btn favorite-btn" onclick="toggleFavorite(10)" title="Favoritar">
-                                            <i class="far fa-heart"></i>
                                         </button>
                                     </td>
                                 </tr>
@@ -530,9 +498,6 @@
                             <span>~12g G</span>
                         </div>
                     </div>
-                    <button class="meal-favorite" onclick="toggleMealFavorite('breakfast')" title="Favoritar refeição">
-                        <i class="far fa-heart"></i>
-                    </button>
                 </div>
             </div>
 
@@ -543,10 +508,6 @@
                         <button class="control-btn small" onclick="randomizeOption('breakfast')">
                             <i class="fas fa-random"></i>
                             Aleatório
-                        </button>
-                        <button class="control-btn small" onclick="compareOptions('breakfast')">
-                            <i class="fas fa-balance-scale"></i>
-                            Comparar
                         </button>
                     </div>
                 </div>
@@ -604,10 +565,10 @@
                     <div class="food-item">
                         <div class="food-name">Banana <span class="food-macro macro-quantidade">80g</span></div>
                         <div class="food-macros">
-                            <span class="food-macro macro-kcal">71 kcal</span>
-                            <span class="food-macro macro-proteina">0.9g Proteína</span>
-                            <span class="food-macro macro-carboidrato">18.3g Carboidrato</span>
-                            <span class="food-macro macro-gordura">0.3g Gordura</span>
+                            <span class="food-macro macro-kcal">78 kcal</span>
+                            <span class="food-macro macro-proteina">1.0g Proteína</span>
+                            <span class="food-macro macro-carboidrato">20.8g Carboidrato</span>
+                            <span class="food-macro macro-gordura">0.1g Gordura</span>
                         </div>
                     </div>
                     
@@ -634,10 +595,10 @@
                     <div class="option-total">
                         <div>Total:</div>
                         <div class="food-macros">
-                            <span class="food-macro macro-kcal">470 kcal</span>
-                            <span class="food-macro macro-proteina">34.4g Proteína</span>
-                            <span class="food-macro macro-carboidrato">51.1g Carboidrato</span>
-                            <span class="food-macro macro-gordura">10.1g Gordura</span>
+                            <span class="food-macro macro-kcal">477 kcal</span>
+                            <span class="food-macro macro-proteina">34.5g Proteína</span>
+                            <span class="food-macro macro-carboidrato">53.6g Carboidrato</span>
+                            <span class="food-macro macro-gordura">9.9g Gordura</span>
                         </div>
                     </div>
                 </div>
@@ -647,19 +608,79 @@
         </div>
         
         <!-- Almoço -->
-        <div class="meal-container">
+        <div class="meal-container" id="lunch">
             <div class="meal-header">
-                <h2>🍛 2. ALMOÇO</h2>
-                <div class="macro-info">~400 kcal | ~40g P / ~45g C / ~10g G</div>
+                <div class="meal-title">
+                    <div class="meal-icon">
+                        <i class="fas fa-hamburger"></i>
+                    </div>
+                    <div class="meal-info">
+                        <h2>2. ALMOÇO</h2>
+                        <div class="meal-time">
+                            <i class="fas fa-clock"></i>
+                            <span>12:00 - 14:00</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="meal-controls">
+                    <div class="macro-info">
+                        <div class="macro-badge calories">
+                            <i class="fas fa-fire"></i>
+                            <span>~450 kcal</span>
+                        </div>
+                        <div class="macro-badge protein">
+                            <i class="fas fa-drumstick-bite"></i>
+                            <span>~40g P</span>
+                        </div>
+                        <div class="macro-badge carb">
+                            <i class="fas fa-bread-slice"></i>
+                            <span>~45g C</span>
+                        </div>
+                        <div class="macro-badge fat">
+                            <i class="fas fa-cheese"></i>
+                            <span>~15g G</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            
+
             <div class="options-container">
+                <div class="options-header">
+                    <h3>Escolha sua opção preferida:</h3>
+                    <div class="options-controls">
+                        <button class="control-btn small" onclick="randomizeOption('lunch')">
+                            <i class="fas fa-random"></i>
+                            Aleatório
+                        </button>
+                    </div>
+                </div>
+
                 <div class="options-tabs">
-                    <button class="option-tab active" onclick="openOption('lunch', 'A')">Opção A</button>
-                    <button class="option-tab" onclick="openOption('lunch', 'B')">Opção B</button>
-                    <button class="option-tab" onclick="openOption('lunch', 'C')">Opção C</button>
-                    <button class="option-tab" onclick="openOption('lunch', 'D')">Opção D</button>
-                    <button class="option-tab" onclick="openOption('lunch', 'E')">Opção E</button>
+                    <button class="option-tab active" onclick="openOption('lunch', 'A')" data-option="A">
+                        <span class="option-letter">A</span>
+                        <span class="option-name">Frango + Arroz</span>
+                        <span class="option-calories">365 kcal</span>
+                    </button>
+                    <button class="option-tab" onclick="openOption('lunch', 'B')" data-option="B">
+                        <span class="option-letter">B</span>
+                        <span class="option-name">Macarrão + Carne</span>
+                        <span class="option-calories">381 kcal</span>
+                    </button>
+                    <button class="option-tab" onclick="openOption('lunch', 'C')" data-option="C">
+                        <span class="option-letter">C</span>
+                        <span class="option-name">Carne + Batata</span>
+                        <span class="option-calories">530 kcal</span>
+                    </button>
+                    <button class="option-tab" onclick="openOption('lunch', 'D')" data-option="D">
+                        <span class="option-letter">D</span>
+                        <span class="option-name">Frango Completo</span>
+                        <span class="option-calories">429 kcal</span>
+                    </button>
+                    <button class="option-tab" onclick="openOption('lunch', 'E')" data-option="E">
+                        <span class="option-letter">E</span>
+                        <span class="option-name">Macarrão + Gado</span>
+                        <span class="option-calories">402 kcal</span>
+                    </button>
                 </div>
                 
                 <!-- Opção A -->
@@ -902,19 +923,79 @@
     
     <div class="container">
         <!-- Lanche da Tarde -->
-        <div class="meal-container">
+        <div class="meal-container" id="snack">
             <div class="meal-header">
-                <h2>🥪 3. LANCHE DA TARDE</h2>
-                <div class="macro-info">~250–435 kcal</div>
+                <div class="meal-title">
+                    <div class="meal-icon">
+                        <i class="fas fa-apple-alt"></i>
+                    </div>
+                    <div class="meal-info">
+                        <h2>3. LANCHE DA TARDE</h2>
+                        <div class="meal-time">
+                            <i class="fas fa-clock"></i>
+                            <span>15:00 - 17:00</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="meal-controls">
+                    <div class="macro-info">
+                        <div class="macro-badge calories">
+                            <i class="fas fa-fire"></i>
+                            <span>~320 kcal</span>
+                        </div>
+                        <div class="macro-badge protein">
+                            <i class="fas fa-drumstick-bite"></i>
+                            <span>~25g P</span>
+                        </div>
+                        <div class="macro-badge carb">
+                            <i class="fas fa-bread-slice"></i>
+                            <span>~30g C</span>
+                        </div>
+                        <div class="macro-badge fat">
+                            <i class="fas fa-cheese"></i>
+                            <span>~10g G</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            
+
             <div class="options-container">
+                <div class="options-header">
+                    <h3>Escolha sua opção preferida:</h3>
+                    <div class="options-controls">
+                        <button class="control-btn small" onclick="randomizeOption('snack')">
+                            <i class="fas fa-random"></i>
+                            Aleatório
+                        </button>
+                    </div>
+                </div>
+
                 <div class="options-tabs">
-                    <button class="option-tab active" onclick="openOption('snack', 'A')">Opção A</button>
-                    <button class="option-tab" onclick="openOption('snack', 'B')">Opção B</button>
-                    <button class="option-tab" onclick="openOption('snack', 'C')">Opção C</button>
-                    <button class="option-tab" onclick="openOption('snack', 'D')">Opção D</button>
-                    <button class="option-tab" onclick="openOption('snack', 'E')">Opção E</button>
+                    <button class="option-tab active" onclick="openOption('snack', 'A')" data-option="A">
+                        <span class="option-letter">A</span>
+                        <span class="option-name">Whey + Frutas</span>
+                        <span class="option-calories">238 kcal</span>
+                    </button>
+                    <button class="option-tab" onclick="openOption('snack', 'B')" data-option="B">
+                        <span class="option-letter">B</span>
+                        <span class="option-name">Vitamina Completa</span>
+                        <span class="option-calories">436 kcal</span>
+                    </button>
+                    <button class="option-tab" onclick="openOption('snack', 'C')" data-option="C">
+                        <span class="option-letter">C</span>
+                        <span class="option-name">Sanduíche Light</span>
+                        <span class="option-calories">323 kcal</span>
+                    </button>
+                    <button class="option-tab" onclick="openOption('snack', 'D')" data-option="D">
+                        <span class="option-letter">D</span>
+                        <span class="option-name">Proteico Mix</span>
+                        <span class="option-calories">414 kcal</span>
+                    </button>
+                    <button class="option-tab" onclick="openOption('snack', 'E')" data-option="E">
+                        <span class="option-letter">E</span>
+                        <span class="option-name">Simples & Saudável</span>
+                        <span class="option-calories">300 kcal</span>
+                    </button>
                 </div>
                 
                 <!-- Opção A -->
@@ -975,10 +1056,10 @@
                     <div class="food-item">
                         <div class="food-name">Banana <span class="food-macro macro-quantidade">80g</span></div>
                         <div class="food-macros">
-                            <span class="food-macro macro-kcal">71 kcal</span>
-                            <span class="food-macro macro-proteina">0.9g Proteína</span>
-                            <span class="food-macro macro-carboidrato">18.3g Carboidrato</span>
-                            <span class="food-macro macro-gordura">0.3g Gordura</span>
+                            <span class="food-macro macro-kcal">78 kcal</span>
+                            <span class="food-macro macro-proteina">1.0g Proteína</span>
+                            <span class="food-macro macro-carboidrato">20.8g Carboidrato</span>
+                            <span class="food-macro macro-gordura">0.1g Gordura</span>
                         </div>
                     </div>
                     
@@ -1005,10 +1086,10 @@
                     <div class="option-total">
                         <div>Total:</div>
                         <div class="food-macros">
-                            <span class="food-macro macro-kcal">436 kcal</span>
-                            <span class="food-macro macro-proteina">31.2g Proteína</span>
-                            <span class="food-macro macro-carboidrato">47.5g Carboidrato</span>
-                            <span class="food-macro macro-gordura">14.4g Gordura</span>
+                            <span class="food-macro macro-kcal">443 kcal</span>
+                            <span class="food-macro macro-proteina">31.3g Proteína</span>
+                            <span class="food-macro macro-carboidrato">50.0g Carboidrato</span>
+                            <span class="food-macro macro-gordura">14.2g Gordura</span>
                         </div>
                     </div>
                 </div>
@@ -1165,19 +1246,79 @@
         </div>
         
         <!-- Jantar -->
-        <div class="meal-container">
+        <div class="meal-container" id="dinner">
             <div class="meal-header">
-                <h2>🍽️ 4. JANTAR</h2>
-                <div class="macro-info">~400 kcal | ~35g P / ~40g C / ~10g G</div>
+                <div class="meal-title">
+                    <div class="meal-icon">
+                        <i class="fas fa-pizza-slice"></i>
+                    </div>
+                    <div class="meal-info">
+                        <h2>4. JANTAR</h2>
+                        <div class="meal-time">
+                            <i class="fas fa-clock"></i>
+                            <span>19:00 - 21:00</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="meal-controls">
+                    <div class="macro-info">
+                        <div class="macro-badge calories">
+                            <i class="fas fa-fire"></i>
+                            <span>~400 kcal</span>
+                        </div>
+                        <div class="macro-badge protein">
+                            <i class="fas fa-drumstick-bite"></i>
+                            <span>~35g P</span>
+                        </div>
+                        <div class="macro-badge carb">
+                            <i class="fas fa-bread-slice"></i>
+                            <span>~40g C</span>
+                        </div>
+                        <div class="macro-badge fat">
+                            <i class="fas fa-cheese"></i>
+                            <span>~10g G</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            
+
             <div class="options-container">
+                <div class="options-header">
+                    <h3>Escolha sua opção preferida:</h3>
+                    <div class="options-controls">
+                        <button class="control-btn small" onclick="randomizeOption('dinner')">
+                            <i class="fas fa-random"></i>
+                            Aleatório
+                        </button>
+                    </div>
+                </div>
+
                 <div class="options-tabs">
-                    <button class="option-tab active" onclick="openOption('dinner', 'A')">Opção A</button>
-                    <button class="option-tab" onclick="openOption('dinner', 'B')">Opção B</button>
-                    <button class="option-tab" onclick="openOption('dinner', 'C')">Opção C</button>
-                    <button class="option-tab" onclick="openOption('dinner', 'D')">Opção D</button>
-                    <button class="option-tab" onclick="openOption('dinner', 'E')">Opção E</button>
+                    <button class="option-tab active" onclick="openOption('dinner', 'A')" data-option="A">
+                        <span class="option-letter">A</span>
+                        <span class="option-name">Frango + Arroz</span>
+                        <span class="option-calories">325 kcal</span>
+                    </button>
+                    <button class="option-tab" onclick="openOption('dinner', 'B')" data-option="B">
+                        <span class="option-letter">B</span>
+                        <span class="option-name">Macarrão + Carne</span>
+                        <span class="option-calories">422 kcal</span>
+                    </button>
+                    <button class="option-tab" onclick="openOption('dinner', 'C')" data-option="C">
+                        <span class="option-letter">C</span>
+                        <span class="option-name">Carne + Batata</span>
+                        <span class="option-calories">530 kcal</span>
+                    </button>
+                    <button class="option-tab" onclick="openOption('dinner', 'D')" data-option="D">
+                        <span class="option-letter">D</span>
+                        <span class="option-name">Frango Completo</span>
+                        <span class="option-calories">406 kcal</span>
+                    </button>
+                    <button class="option-tab" onclick="openOption('dinner', 'E')" data-option="E">
+                        <span class="option-letter">E</span>
+                        <span class="option-name">Peixe + Legumes</span>
+                        <span class="option-calories">380 kcal</span>
+                    </button>
                 </div>
                 
                 <!-- Opção A -->
@@ -1356,7 +1497,7 @@
                         <div class="food-macros">
                             <span class="food-macro macro-kcal">117 kcal</span>
                             <span class="food-macro macro-proteina">2.4g Proteína</span>
-                            <span class="food-macro macro-carboidrato">25.4g Carboidrato</span>
+                            <span class="food-macro macro-carboidrato">25.7g Carboidrato</span>
                             <span class="food-macro macro-gordura">0.3g Gordura</span>
                         </div>
                     </div>
@@ -1376,7 +1517,7 @@
                         <div class="food-macros">
                             <span class="food-macro macro-kcal">444 kcal</span>
                             <span class="food-macro macro-proteina">40.3g Proteína</span>
-                            <span class="food-macro macro-carboidrato">52.2g Carboidrato</span>
+                            <span class="food-macro macro-carboidrato">52.5g Carboidrato</span>
                             <span class="food-macro macro-gordura">4.6g Gordura</span>
                         </div>
                     </div>
@@ -1428,19 +1569,79 @@
         </div>
         
         <!-- Ceia -->
-        <div class="meal-container">
+        <div class="meal-container" id="supper">
             <div class="meal-header">
-                <h2>🌙 5. CEIA</h2>
-                <div class="macro-info">~250 kcal | ~20g P / ~25g C / ~7g G</div>
+                <div class="meal-title">
+                    <div class="meal-icon">
+                        <i class="fas fa-cookie-bite"></i>
+                    </div>
+                    <div class="meal-info">
+                        <h2>5. CEIA</h2>
+                        <div class="meal-time">
+                            <i class="fas fa-clock"></i>
+                            <span>21:30 - 23:00</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="meal-controls">
+                    <div class="macro-info">
+                        <div class="macro-badge calories">
+                            <i class="fas fa-fire"></i>
+                            <span>~250 kcal</span>
+                        </div>
+                        <div class="macro-badge protein">
+                            <i class="fas fa-drumstick-bite"></i>
+                            <span>~20g P</span>
+                        </div>
+                        <div class="macro-badge carb">
+                            <i class="fas fa-bread-slice"></i>
+                            <span>~25g C</span>
+                        </div>
+                        <div class="macro-badge fat">
+                            <i class="fas fa-cheese"></i>
+                            <span>~7g G</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            
+
             <div class="options-container">
+                <div class="options-header">
+                    <h3>Escolha sua opção preferida:</h3>
+                    <div class="options-controls">
+                        <button class="control-btn small" onclick="randomizeOption('supper')">
+                            <i class="fas fa-random"></i>
+                            Aleatório
+                        </button>
+                    </div>
+                </div>
+
                 <div class="options-tabs">
-                    <button class="option-tab active" onclick="openOption('supper', 'A')">Opção A</button>
-                    <button class="option-tab" onclick="openOption('supper', 'B')">Opção B</button>
-                    <button class="option-tab" onclick="openOption('supper', 'C')">Opção C</button>
-                    <button class="option-tab" onclick="openOption('supper', 'D')">Opção D</button>
-                    <button class="option-tab" onclick="openOption('supper', 'E')">Opção E</button>
+                    <button class="option-tab active" onclick="openOption('supper', 'A')" data-option="A">
+                        <span class="option-letter">A</span>
+                        <span class="option-name">Whey + Leite</span>
+                        <span class="option-calories">243 kcal</span>
+                    </button>
+                    <button class="option-tab" onclick="openOption('supper', 'B')" data-option="B">
+                        <span class="option-letter">B</span>
+                        <span class="option-name">Iogurte + Aveia</span>
+                        <span class="option-calories">276 kcal</span>
+                    </button>
+                    <button class="option-tab" onclick="openOption('supper', 'C')" data-option="C">
+                        <span class="option-letter">C</span>
+                        <span class="option-name">Ovo + Pão</span>
+                        <span class="option-calories">196 kcal</span>
+                    </button>
+                    <button class="option-tab" onclick="openOption('supper', 'D')" data-option="D">
+                        <span class="option-letter">D</span>
+                        <span class="option-name">Queijo + Torrada</span>
+                        <span class="option-calories">220 kcal</span>
+                    </button>
+                    <button class="option-tab" onclick="openOption('supper', 'E')" data-option="E">
+                        <span class="option-letter">E</span>
+                        <span class="option-name">Vitamina Light</span>
+                        <span class="option-calories">185 kcal</span>
+                    </button>
                 </div>
                 
                 <!-- Opção A -->
@@ -1469,9 +1670,9 @@
                         <div class="food-name">Aveia <span class="food-macro macro-quantidade">15g</span></div>
                         <div class="food-macros">
                             <span class="food-macro macro-kcal">58.5 kcal</span>
-                            <span class="food-macro macro-proteina">2.1g Proteína</span>
-                            <span class="food-macro macro-carboidrato">10.5g Carboidrato</span>
-                            <span class="food-macro macro-gordura">1g Gordura</span>
+                            <span class="food-macro macro-proteina">2.55g Proteína</span>
+                            <span class="food-macro macro-carboidrato">9.95g Carboidrato</span>
+                            <span class="food-macro macro-gordura">1.05g Gordura</span>
                         </div>
                     </div>
                     
@@ -1479,9 +1680,9 @@
                         <div>Total:</div>
                         <div class="food-macros">
                             <span class="food-macro macro-kcal">259.5 kcal</span>
-                            <span class="food-macro macro-proteina">24.8g Proteína</span>
-                            <span class="food-macro macro-carboidrato">28.5g Carboidrato</span>
-                            <span class="food-macro macro-gordura">5.1g Gordura</span>
+                            <span class="food-macro macro-proteina">25.25g Proteína</span>
+                            <span class="food-macro macro-carboidrato">28.0g Carboidrato</span>
+                            <span class="food-macro macro-gordura">5.15g Gordura</span>
                         </div>
                     </div>
                 </div>
@@ -1511,20 +1712,20 @@
                     <div class="food-item">
                         <div class="food-name">Banana <span class="food-macro macro-quantidade">50g</span></div>
                         <div class="food-macros">
-                            <span class="food-macro macro-kcal">44 kcal</span>
-                            <span class="food-macro macro-proteina">0.6g Proteína</span>
-                            <span class="food-macro macro-carboidrato">11.3g Carboidrato</span>
-                            <span class="food-macro macro-gordura">0.2g Gordura</span>
+                            <span class="food-macro macro-kcal">49 kcal</span>
+                            <span class="food-macro macro-proteina">0.7g Proteína</span>
+                            <span class="food-macro macro-carboidrato">13.0g Carboidrato</span>
+                            <span class="food-macro macro-gordura">0.1g Gordura</span>
                         </div>
                     </div>
                     
                     <div class="option-total">
                         <div>Total:</div>
                         <div class="food-macros">
-                            <span class="food-macro macro-kcal">292 kcal</span>
-                            <span class="food-macro macro-proteina">26.1g Proteína</span>
-                            <span class="food-macro macro-carboidrato">22.1g Carboidrato</span>
-                            <span class="food-macro macro-gordura">12.3g Gordura</span>
+                            <span class="food-macro macro-kcal">297 kcal</span>
+                            <span class="food-macro macro-proteina">26.2g Proteína</span>
+                            <span class="food-macro macro-carboidrato">23.8g Carboidrato</span>
+                            <span class="food-macro macro-gordura">12.2g Gordura</span>
                         </div>
                     </div>
                 </div>
@@ -1597,20 +1798,20 @@
                     <div class="food-item">
                         <div class="food-name">Banana <span class="food-macro macro-quantidade">30g</span></div>
                         <div class="food-macros">
-                            <span class="food-macro macro-kcal">26.5 kcal</span>
+                            <span class="food-macro macro-kcal">29 kcal</span>
                             <span class="food-macro macro-proteina">0.4g Proteína</span>
-                            <span class="food-macro macro-carboidrato">6.8g Carboidrato</span>
-                            <span class="food-macro macro-gordura">0.1g Gordura</span>
+                            <span class="food-macro macro-carboidrato">7.8g Carboidrato</span>
+                            <span class="food-macro macro-gordura">0.0g Gordura</span>
                         </div>
                     </div>
                     
                     <div class="option-total">
                         <div>Total:</div>
                         <div class="food-macros">
-                            <span class="food-macro macro-kcal">232.5 kcal</span>
+                            <span class="food-macro macro-kcal">235 kcal</span>
                             <span class="food-macro macro-proteina">18.5g Proteína</span>
-                            <span class="food-macro macro-carboidrato">22.2g Carboidrato</span>
-                            <span class="food-macro macro-gordura">12.3g Gordura</span>
+                            <span class="food-macro macro-carboidrato">23.2g Carboidrato</span>
+                            <span class="food-macro macro-gordura">12.2g Gordura</span>
                         </div>
                     </div>
                 </div>
@@ -1630,10 +1831,10 @@
                     <div class="food-item">
                         <div class="food-name">Banana <span class="food-macro macro-quantidade">80g</span></div>
                         <div class="food-macros">
-                            <span class="food-macro macro-kcal">71 kcal</span>
-                            <span class="food-macro macro-proteina">0.9g Proteína</span>
-                            <span class="food-macro macro-carboidrato">18g Carboidrato</span>
-                            <span class="food-macro macro-gordura">0.3g Gordura</span>
+                            <span class="food-macro macro-kcal">78 kcal</span>
+                            <span class="food-macro macro-proteina">1.0g Proteína</span>
+                            <span class="food-macro macro-carboidrato">20.8g Carboidrato</span>
+                            <span class="food-macro macro-gordura">0.1g Gordura</span>
                         </div>
                     </div>
                     
@@ -1660,10 +1861,10 @@
                     <div class="option-total">
                         <div>Total:</div>
                         <div class="food-macros">
-                            <span class="food-macro macro-kcal">214.5 kcal</span>
-                            <span class="food-macro macro-proteina">22.1g Proteína</span>
-                            <span class="food-macro macro-carboidrato">26.7g Carboidrato</span>
-                            <span class="food-macro macro-gordura">5.4g Gordura</span>
+                            <span class="food-macro macro-kcal">221.5 kcal</span>
+                            <span class="food-macro macro-proteina">22.2g Proteína</span>
+                            <span class="food-macro macro-carboidrato">29.5g Carboidrato</span>
+                            <span class="food-macro macro-gordura">5.2g Gordura</span>
                         </div>
                     </div>
                 </div>
@@ -1734,28 +1935,13 @@
         </div>
     </footer>
     
-    <div class="floating-buttons">
-        <button class="floating-button theme-button" id="theme-toggle-float" aria-label="Alternar modo escuro">
-            <span class="tooltip">Alternar modo</span>
-            <i class="fas fa-moon"></i>
-        </button>
-        <button class="floating-button export-button" onclick="generatePDF()" aria-label="Exportar para PDF">
-            <span class="tooltip">Exportar PDF</span>
-            <i class="fas fa-file-pdf"></i>
-        </button>
-    </div>
+
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <!-- Floating Action Buttons -->
     <div class="floating-buttons">
-        <button class="fab export-button" onclick="generatePDF()" title="Exportar PDF">
-            <span class="tooltip">Exportar PDF</span>
-            <i class="fas fa-file-pdf"></i>
-        </button>
-        <button class="fab theme-toggle" id="theme-toggle-float" title="Alternar tema">
-            <span class="tooltip">Alternar Tema</span>
-            <i class="fas fa-moon"></i>
-        </button>
+
+
         <button class="fab scroll-top" onclick="scrollToSection('summary')" title="Voltar ao topo">
             <span class="tooltip">Voltar ao Topo</span>
             <i class="fas fa-arrow-up"></i>
@@ -1763,7 +1949,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
     <script src="script.js"></script>
 </body>
 </html>

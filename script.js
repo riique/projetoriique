@@ -7,7 +7,7 @@ let selectedMealOptions = {
     supper: 'A'
 };
 
-let favoritePlans = [];
+
 let selectedPlan = null;
 
 // ===== LOADING SCREEN =====
@@ -67,64 +67,7 @@ function initNavigation() {
     });
 }
 
-// ===== THEME SYSTEM =====
-const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
 
-function initTheme() {
-    const storedTheme = localStorage.getItem('theme');
-    const theme = storedTheme || (prefersDarkScheme.matches ? 'dark' : 'light');
-
-    document.documentElement.setAttribute('data-theme', theme);
-    updateThemeIcons(theme === 'dark');
-}
-
-function updateThemeIcons(isDark) {
-    const themeToggles = document.querySelectorAll('.theme-toggle, #theme-toggle-float');
-
-    themeToggles.forEach(toggle => {
-        const icon = toggle.querySelector('i');
-        if (icon) {
-            if (isDark) {
-                icon.className = 'fas fa-sun';
-            } else {
-                icon.className = 'fas fa-moon';
-            }
-        }
-    });
-}
-
-function toggleTheme() {
-    const currentTheme = document.documentElement.getAttribute('data-theme');
-    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-
-    document.documentElement.classList.add('theme-transition');
-    document.documentElement.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-
-    updateThemeIcons(newTheme === 'dark');
-
-    setTimeout(() => {
-        document.documentElement.classList.remove('theme-transition');
-    }, 600);
-
-    showNotification(`Tema ${newTheme === 'dark' ? 'escuro' : 'claro'} ativado!`, 'success');
-}
-
-function initThemeListeners() {
-    const themeToggles = document.querySelectorAll('.theme-toggle, #theme-toggle-float');
-
-    themeToggles.forEach(toggle => {
-        toggle.addEventListener('click', (e) => {
-            e.preventDefault();
-            toggleTheme();
-
-            toggle.classList.add('theme-toggle-animate');
-            setTimeout(() => {
-                toggle.classList.remove('theme-toggle-animate');
-            }, 700);
-        });
-    });
-}
 
 // ===== MEAL OPTIONS SYSTEM =====
 function openOption(mealType, option) {
@@ -150,6 +93,9 @@ function openOption(mealType, option) {
             selectedContent.style.opacity = '1';
             selectedContent.style.transition = 'opacity 0.5s ease';
         }, 50);
+
+        // Update meal header macros with the selected option's values
+        updateMealHeaderMacros(mealType, selectedContent);
     }
 
     if (selectedTab) {
@@ -164,11 +110,58 @@ function openOption(mealType, option) {
     localStorage.setItem('selectedMealOptions', JSON.stringify(selectedMealOptions));
 
     // Update calculations
-    updateDailyTotals();
+    calculateDailyTotals();
 
-    // Show feedback
-    const optionName = selectedTab?.querySelector('.option-name')?.textContent || `Opção ${option}`;
-    showNotification(`${optionName} selecionada para ${getMealName(mealType)}!`, 'success');
+    // Show feedback (only for manual selections, not automatic ones)
+    if (!window.isAutomaticSelection) {
+        const optionName = selectedTab?.querySelector('.option-name')?.textContent || `Opção ${option}`;
+        showNotification(`${optionName} selecionada!`, 'success');
+    }
+}
+
+function updateMealHeaderMacros(mealType, selectedContent) {
+    const totalElement = selectedContent.querySelector('.option-total');
+    if (totalElement) {
+        const calories = totalElement.querySelector('.macro-kcal')?.textContent || '0 kcal';
+        const protein = totalElement.querySelector('.macro-proteina')?.textContent || '0g Proteína';
+        const carbs = totalElement.querySelector('.macro-carboidrato')?.textContent || '0g Carboidrato';
+        const fats = totalElement.querySelector('.macro-gordura')?.textContent || '0g Gordura';
+
+        // Update header badges
+        const mealContainer = document.getElementById(mealType);
+        if (mealContainer) {
+            const caloriesBadge = mealContainer.querySelector('.macro-badge.calories span');
+            const proteinBadge = mealContainer.querySelector('.macro-badge.protein span');
+            const carbBadge = mealContainer.querySelector('.macro-badge.carb span');
+            const fatBadge = mealContainer.querySelector('.macro-badge.fat span');
+
+            if (caloriesBadge) {
+                caloriesBadge.textContent = calories;
+                animateBadge(caloriesBadge.parentElement);
+            }
+            if (proteinBadge) {
+                proteinBadge.textContent = protein.replace('Proteína', 'P');
+                animateBadge(proteinBadge.parentElement);
+            }
+            if (carbBadge) {
+                carbBadge.textContent = carbs.replace('Carboidrato', 'C');
+                animateBadge(carbBadge.parentElement);
+            }
+            if (fatBadge) {
+                fatBadge.textContent = fats.replace('Gordura', 'G');
+                animateBadge(fatBadge.parentElement);
+            }
+        }
+    }
+}
+
+function animateBadge(badge) {
+    badge.style.transform = 'scale(1.1)';
+    badge.style.background = 'rgba(255, 255, 255, 0.3)';
+    setTimeout(() => {
+        badge.style.transform = '';
+        badge.style.background = '';
+    }, 300);
 }
 
 function randomizeOption(mealType) {
@@ -186,153 +179,142 @@ function randomizeOption(mealType) {
     }
 }
 
-function compareOptions(mealType) {
-    const modal = createComparisonModal(mealType);
-    document.body.appendChild(modal);
 
-    setTimeout(() => {
-        modal.classList.add('show');
-    }, 10);
-}
-
-function createComparisonModal(mealType) {
-    const modal = document.createElement('div');
-    modal.className = 'comparison-modal';
-    modal.innerHTML = `
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3><i class="fas fa-balance-scale"></i> Comparar Opções - ${getMealName(mealType)}</h3>
-                <button class="modal-close" onclick="closeModal(this)">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="comparison-grid">
-                    ${generateComparisonContent(mealType)}
-                </div>
-            </div>
-        </div>
-        <div class="modal-overlay" onclick="closeModal(this.parentElement)"></div>
-    `;
-
-    return modal;
-}
-
-function generateComparisonContent(mealType) {
-    const options = ['A', 'B', 'C', 'D', 'E'];
-    let content = '';
-
-    options.forEach(option => {
-        const optionElement = document.getElementById(`${mealType}-${option}`);
-        if (optionElement) {
-            const totalElement = optionElement.querySelector('.option-total');
-            const calories = totalElement?.querySelector('.macro-kcal')?.textContent || 'N/A';
-            const protein = totalElement?.querySelector('.macro-proteina')?.textContent || 'N/A';
-
-            content += `
-                <div class="comparison-card" onclick="selectFromComparison('${mealType}', '${option}')">
-                    <div class="comparison-header">
-                        <span class="option-letter">${option}</span>
-                        <span class="option-calories">${calories}</span>
-                    </div>
-                    <div class="comparison-protein">${protein}</div>
-                    <button class="select-option-btn">
-                        <i class="fas fa-check"></i>
-                        Selecionar
-                    </button>
-                </div>
-            `;
-        }
-    });
-
-    return content;
-}
-
-function selectFromComparison(mealType, option) {
-    openOption(mealType, option);
-    closeModal(document.querySelector('.comparison-modal'));
-}
-
-function closeModal(modal) {
-    modal.classList.remove('show');
-    setTimeout(() => {
-        modal.remove();
-    }, 300);
-}
 
 // ===== PLAN SELECTION SYSTEM =====
 function selectPlan(planNumber) {
     // Remove previous selections
     document.querySelectorAll('.plan-row').forEach(row => {
         row.classList.remove('selected');
+        row.querySelector('.select-btn i').className = 'fas fa-check';
     });
 
     // Add selection to clicked row
     const selectedRow = document.querySelector(`[data-day="${planNumber}"]`);
     if (selectedRow) {
         selectedRow.classList.add('selected');
+        selectedRow.querySelector('.select-btn i').className = 'fas fa-check-circle';
         selectedPlan = planNumber;
 
         // Save selection
         localStorage.setItem('selected-plan', planNumber);
 
-        // Show success message
-        showNotification(`Plano ${planNumber} selecionado com sucesso!`, 'success');
+        // Get plan macros from the table
+        const calories = selectedRow.getAttribute('data-calories') || selectedRow.querySelector('.macro-value.calories').textContent.replace(/[^\d]/g, '');
+        const protein = selectedRow.getAttribute('data-protein') || selectedRow.querySelector('.macro-value.protein').textContent.replace(/[^\d.,]/g, '');
+        const carbs = selectedRow.getAttribute('data-carbs') || selectedRow.querySelector('.macro-value.carb').textContent.replace(/[^\d.,]/g, '');
+        const fats = selectedRow.getAttribute('data-fats') || selectedRow.querySelector('.macro-value.fat').textContent.replace(/[^\d.,]/g, '');
 
-        // Update meal options based on selected plan
-        updateMealOptionsFromPlan(planNumber);
+        // Update the summary tabs with plan values
+        updateSummaryTabs(calories, protein, carbs, fats);
+
+        // Show success message with plan details
+        const planLabel = selectedRow.querySelector('.day-label').textContent;
+        showNotification(`${planLabel} selecionado! Totais atualizados: ${calories} kcal`, 'success');
+
+        // Scroll to summary section to show the updated tabs
+        setTimeout(() => {
+            scrollToSection('summary');
+        }, 300);
+
+        // Don't auto-update meal options - let user select individually
+        // Just highlight the plan for reference and update summary
+    }
+}
+
+function updateSummaryTabs(calories, protein, carbs, fats) {
+    // Update the main summary tabs
+    const caloriesElement = document.getElementById('total-calories');
+    const proteinElement = document.getElementById('total-protein');
+    const carbsElement = document.getElementById('total-carbs');
+    const fatsElement = document.getElementById('total-fats');
+
+    if (caloriesElement) {
+        caloriesElement.textContent = formatNumber(calories);
+        animateSummaryTab(caloriesElement.closest('.macro-item'));
+    }
+
+    if (proteinElement) {
+        proteinElement.textContent = formatNumber(protein);
+        animateSummaryTab(proteinElement.closest('.macro-item'));
+    }
+
+    if (carbsElement) {
+        carbsElement.textContent = formatNumber(carbs);
+        animateSummaryTab(carbsElement.closest('.macro-item'));
+    }
+
+    if (fatsElement) {
+        fatsElement.textContent = formatNumber(fats);
+        animateSummaryTab(fatsElement.closest('.macro-item'));
+    }
+
+    // Update progress bars based on the new values
+    updateProgressBars(parseFloat(calories), parseFloat(protein), parseFloat(carbs), parseFloat(fats));
+}
+
+function formatNumber(value) {
+    const num = parseFloat(value);
+    return num % 1 === 0 ? num.toString() : num.toFixed(1);
+}
+
+function animateSummaryTab(tabElement) {
+    if (tabElement) {
+        // Add updating class for animation
+        tabElement.classList.add('updating');
+
+        // Remove the class after animation completes
+        setTimeout(() => {
+            tabElement.classList.remove('updating');
+        }, 600);
     }
 }
 
 function updateMealOptionsFromPlan(planNumber) {
     const planRow = document.querySelector(`[data-day="${planNumber}"]`);
     if (planRow) {
-        const mealOptions = {
-            breakfast: planRow.querySelector('[data-meal="breakfast"]')?.textContent,
-            lunch: planRow.querySelector('[data-meal="lunch"]')?.textContent,
-            snack: planRow.querySelector('[data-meal="snack"]')?.textContent,
-            dinner: planRow.querySelector('[data-meal="dinner"]')?.textContent,
-            supper: planRow.querySelector('[data-meal="supper"]')?.textContent
-        };
+        try {
+            // Get plan data from data attribute
+            const planData = JSON.parse(planRow.getAttribute('data-plan'));
 
-        // Update each meal option
-        Object.entries(mealOptions).forEach(([meal, option]) => {
-            if (option) {
-                openOption(meal, option);
-            }
-        });
+            // Update each meal option with animation
+            Object.entries(planData).forEach(([meal, option], index) => {
+                setTimeout(() => {
+                    if (option && document.getElementById(`${meal}-${option}`)) {
+                        openOption(meal, option);
+
+                        // Add visual feedback
+                        const mealContainer = document.getElementById(meal);
+                        if (mealContainer) {
+                            mealContainer.style.transform = 'scale(1.02)';
+                            mealContainer.style.boxShadow = '0 8px 25px rgba(var(--accent-color-rgb), 0.15)';
+
+                            setTimeout(() => {
+                                mealContainer.style.transform = '';
+                                mealContainer.style.boxShadow = '';
+                            }, 500);
+                        }
+                    }
+                }, index * 200);
+            });
+
+            // Update global selection state
+            selectedMealOptions = { ...planData };
+            localStorage.setItem('selectedMealOptions', JSON.stringify(selectedMealOptions));
+
+            // Calculate and update totals after all options are set
+            setTimeout(() => {
+                calculateDailyTotals();
+            }, Object.keys(planData).length * 200 + 500);
+
+        } catch (error) {
+            console.error('Error parsing plan data:', error);
+            showNotification('Erro ao aplicar o plano selecionado', 'error');
+        }
     }
 }
 
-function toggleFavorite(planNumber) {
-    const favoriteBtn = document.querySelector(`[data-day="${planNumber}"] .favorite-btn i`);
-    const isFavorited = favoriteBtn.classList.contains('fas');
 
-    if (isFavorited) {
-        favoriteBtn.className = 'far fa-heart';
-        favoritePlans = favoritePlans.filter(p => p !== planNumber);
-        showNotification(`Plano ${planNumber} removido dos favoritos`, 'info');
-    } else {
-        favoriteBtn.className = 'fas fa-heart';
-        favoritePlans.push(planNumber);
-        showNotification(`Plano ${planNumber} adicionado aos favoritos!`, 'success');
-    }
-
-    localStorage.setItem('favorite-plans', JSON.stringify(favoritePlans));
-}
-
-function toggleMealFavorite(mealType) {
-    const favoriteBtn = document.querySelector(`#${mealType} .meal-favorite i`);
-    const isFavorited = favoriteBtn.classList.contains('fas');
-
-    if (isFavorited) {
-        favoriteBtn.className = 'far fa-heart';
-        showNotification(`${getMealName(mealType)} removida dos favoritos`, 'info');
-    } else {
-        favoriteBtn.className = 'fas fa-heart';
-        showNotification(`${getMealName(mealType)} adicionada aos favoritos!`, 'success');
-    }
-}
 
 function highlightBestPlan() {
     // Remove previous highlights
@@ -388,7 +370,7 @@ function calculateDailyTotals() {
 
     Object.entries(selectedMealOptions).forEach(([meal, option]) => {
         const optionElement = document.getElementById(`${meal}-${option}`);
-        if (optionElement) {
+        if (optionElement && optionElement.classList.contains('active')) {
             const totalElement = optionElement.querySelector('.option-total');
             if (totalElement) {
                 const calories = parseFloat(totalElement.querySelector('.macro-kcal')?.textContent.replace(/[^\d.]/g, '') || 0);
@@ -404,13 +386,59 @@ function calculateDailyTotals() {
         }
     });
 
-    // Update display
+    // Update display with animation
     updateMacroDisplay('total-calories', Math.round(totalCalories));
     updateMacroDisplay('total-protein', Math.round(totalProtein * 10) / 10);
     updateMacroDisplay('total-carbs', Math.round(totalCarbs * 10) / 10);
     updateMacroDisplay('total-fats', Math.round(totalFats * 10) / 10);
 
-    showNotification('Totais calculados com base nas suas seleções!', 'success');
+    // Update progress bars
+    updateProgressBars(totalCalories, totalProtein, totalCarbs, totalFats);
+
+    // Update summary section if it exists
+    updateSummarySection(totalCalories, totalProtein, totalCarbs, totalFats);
+}
+
+function updateProgressBars(calories, protein, carbs, fats) {
+    // Define targets (these could be made configurable)
+    const targets = {
+        calories: 1700,
+        protein: 150,
+        carbs: 170,
+        fats: 50
+    };
+
+    // Update progress bars
+    updateProgressBar('calories', calories, targets.calories);
+    updateProgressBar('protein', protein, targets.protein);
+    updateProgressBar('carb', carbs, targets.carbs);
+    updateProgressBar('fat', fats, targets.fats);
+}
+
+function updateProgressBar(type, current, target) {
+    const macroItem = document.querySelector(`[data-macro="${type}"]`);
+    if (macroItem) {
+        const progressFill = macroItem.querySelector('.progress-fill');
+        const progressText = macroItem.querySelector('.progress-text');
+
+        if (progressFill && progressText) {
+            const percentage = Math.min((current / target) * 100, 100);
+            progressFill.style.width = `${percentage}%`;
+            progressText.textContent = `${Math.round(percentage)}% da meta`;
+
+            // Add color coding
+            progressFill.className = 'progress-fill';
+            if (percentage >= 90) {
+                progressFill.classList.add('excellent');
+            } else if (percentage >= 70) {
+                progressFill.classList.add('good');
+            } else if (percentage >= 50) {
+                progressFill.classList.add('fair');
+            } else {
+                progressFill.classList.add('low');
+            }
+        }
+    }
 }
 
 function updateMacroDisplay(elementId, value) {
@@ -434,12 +462,10 @@ function resetSelections() {
 
     // Clear localStorage
     localStorage.removeItem('selected-plan');
-    localStorage.removeItem('favorite-plans');
     localStorage.removeItem('selectedMealOptions');
 
     // Reset global variables
     selectedPlan = null;
-    favoritePlans = [];
     selectedMealOptions = {
         breakfast: 'A',
         lunch: 'A',
@@ -453,24 +479,33 @@ function resetSelections() {
         row.classList.remove('selected', 'highlighted');
     });
 
-    // Reset favorite buttons
-    document.querySelectorAll('.favorite-btn i').forEach(icon => {
-        icon.className = 'far fa-heart';
-    });
-
     showNotification('Todas as seleções foram resetadas!', 'info');
 }
 
-function updateDailyTotals() {
-    // Add visual effect to macro items
-    document.querySelectorAll('.macro-item').forEach((item, index) => {
-        setTimeout(() => {
-            item.style.transform = 'scale(1.05)';
+function updateSummarySection(calories, protein, carbs, fats) {
+    // Update summary section if it exists
+    const summarySection = document.querySelector('.summary');
+    if (summarySection) {
+        const summaryCalories = summarySection.querySelector('[data-summary="calories"]');
+        const summaryProtein = summarySection.querySelector('[data-summary="protein"]');
+        const summaryCarbs = summarySection.querySelector('[data-summary="carbs"]');
+        const summaryFats = summarySection.querySelector('[data-summary="fats"]');
+
+        if (summaryCalories) summaryCalories.textContent = `${Math.round(calories)} kcal`;
+        if (summaryProtein) summaryProtein.textContent = `${Math.round(protein * 10) / 10}g`;
+        if (summaryCarbs) summaryCarbs.textContent = `${Math.round(carbs * 10) / 10}g`;
+        if (summaryFats) summaryFats.textContent = `${Math.round(fats * 10) / 10}g`;
+
+        // Add visual effect to summary items
+        summarySection.querySelectorAll('.macro-item').forEach((item, index) => {
             setTimeout(() => {
-                item.style.transform = '';
-            }, 200);
-        }, index * 100);
-    });
+                item.style.transform = 'scale(1.05)';
+                setTimeout(() => {
+                    item.style.transform = '';
+                }, 200);
+            }, index * 100);
+        });
+    }
 }
 
 // ===== NOTIFICATIONS SYSTEM =====
@@ -516,48 +551,7 @@ function getNotificationIcon(type) {
     return icons[type] || 'info-circle';
 }
 
-// ===== PDF EXPORT =====
-function generatePDF() {
-    const exportButton = document.querySelector('.export-button');
-    if (!exportButton) return;
 
-    const originalContent = exportButton.innerHTML;
-    exportButton.innerHTML = '<span class="tooltip">Gerando...</span><i class="fas fa-spinner fa-spin"></i>';
-    exportButton.classList.add('exporting');
-
-    // Hide floating buttons for PDF
-    const elementsToHide = document.querySelectorAll('.floating-buttons, .nav-menu, .loading-screen');
-    elementsToHide.forEach(el => el.style.display = 'none');
-
-    const element = document.querySelector('.container');
-    const options = {
-        margin: 1,
-        filename: 'minha-dieta-personalizada.pdf',
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true },
-        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-    };
-
-    showNotification('Gerando PDF...', 'info');
-
-    html2pdf().set(options).from(element).save().then(() => {
-        // Restore hidden elements
-        elementsToHide.forEach(el => el.style.display = '');
-
-        // Restore button
-        exportButton.innerHTML = originalContent;
-        exportButton.classList.remove('exporting');
-
-        showNotification('PDF gerado com sucesso!', 'success');
-    }).catch(() => {
-        // Restore on error
-        elementsToHide.forEach(el => el.style.display = '');
-        exportButton.innerHTML = originalContent;
-        exportButton.classList.remove('exporting');
-
-        showNotification('Erro ao gerar PDF', 'error');
-    });
-}
 
 // ===== DATA PERSISTENCE =====
 function loadSavedData() {
@@ -567,11 +561,7 @@ function loadSavedData() {
         selectedMealOptions = JSON.parse(savedMealOptions);
     }
 
-    // Load favorite plans
-    const savedFavorites = localStorage.getItem('favorite-plans');
-    if (savedFavorites) {
-        favoritePlans = JSON.parse(savedFavorites);
-    }
+
 
     // Load selected plan
     const savedPlan = localStorage.getItem('selected-plan');
@@ -587,13 +577,7 @@ function loadSavedData() {
         }
     });
 
-    // Apply favorite plans
-    favoritePlans.forEach(planNumber => {
-        const favoriteBtn = document.querySelector(`[data-day="${planNumber}"] .favorite-btn i`);
-        if (favoriteBtn) {
-            favoriteBtn.className = 'fas fa-heart';
-        }
-    });
+
 
     // Apply selected plan
     if (selectedPlan) {
@@ -604,15 +588,56 @@ function loadSavedData() {
     }
 }
 
+// ===== NAVIGATION HELPERS =====
+function scrollToSection(sectionId) {
+    const section = document.getElementById(sectionId);
+    if (section) {
+        section.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    }
+}
+
+// ===== TABLE INTERACTION =====
+function initializeTableInteraction() {
+    // Add click handlers to table rows
+    document.querySelectorAll('.plan-row').forEach(row => {
+        row.addEventListener('click', function(e) {
+            // Don't trigger if clicking on buttons
+            if (e.target.closest('.action-btn')) {
+                return;
+            }
+
+            const planNumber = parseInt(this.getAttribute('data-day'));
+            selectPlan(planNumber);
+        });
+    });
+}
+
 // ===== INITIALIZATION =====
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize core systems
-    initTheme();
-    initThemeListeners();
     initNavigation();
+
+    // Initialize table interaction
+    initializeTableInteraction();
 
     // Load saved data
     loadSavedData();
+
+    // Load saved plan selection (just highlight, don't auto-apply)
+    const savedPlan = localStorage.getItem('selected-plan');
+    if (savedPlan) {
+        setTimeout(() => {
+            // Just highlight the saved plan without applying it
+            const savedRow = document.querySelector(`[data-day="${savedPlan}"]`);
+            if (savedRow) {
+                savedRow.classList.add('selected');
+                savedRow.querySelector('.select-btn i').className = 'fas fa-check-circle';
+            }
+        }, 500);
+    }
 
     // Add smooth scrolling to all anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {

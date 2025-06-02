@@ -831,6 +831,20 @@ h1::after {
     z-index: 2;
 }
 
+.macro-item.updating {
+    transform: scale(1.05);
+    background: linear-gradient(135deg, rgba(var(--accent-color-rgb), 0.1), rgba(var(--primary-color-rgb), 0.05));
+    box-shadow: 0 8px 25px rgba(var(--accent-color-rgb), 0.15);
+    border-color: var(--accent-color);
+    animation: pulse-update 0.6s ease-in-out;
+}
+
+@keyframes pulse-update {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+    100% { transform: scale(1.05); }
+}
+
 .macro-item h3 {
     font-size: 1.1rem;
     font-weight: 700;
@@ -1046,12 +1060,39 @@ h1::after {
     background: var(--light-color);
     transform: scale(1.01);
     box-shadow: 0 4px 15px rgba(var(--primary-color-rgb), 0.1);
+    cursor: pointer;
 }
 
 .plan-row.selected {
-    background: rgba(var(--primary-color-rgb), 0.1);
-    border-left: 4px solid var(--primary-color);
+    background: linear-gradient(135deg, rgba(var(--accent-color-rgb), 0.1), rgba(var(--accent-color-rgb), 0.05));
+    border: 2px solid var(--accent-color);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 25px rgba(var(--accent-color-rgb), 0.15);
 }
+
+.plan-row.selected .select-btn {
+    background: var(--accent-color);
+    color: white;
+    transform: scale(1.1);
+    box-shadow: 0 4px 15px rgba(var(--accent-color-rgb), 0.3);
+}
+
+.plan-row.selected .select-btn i {
+    animation: checkmark 0.5s ease-in-out;
+}
+
+.plan-row.selected .day-cell {
+    color: var(--accent-color);
+    font-weight: 600;
+}
+
+@keyframes checkmark {
+    0% { transform: scale(0); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+
 
 .plan-row.highlighted {
     background: rgba(var(--accent-color-rgb), 0.1);
