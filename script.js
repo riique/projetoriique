@@ -604,69 +604,269 @@ function loadSavedData() {
     }
 }
 
-// Adicionar estilos CSS para as novas classes
-const styleSheet = document.createElement('style');
-styleSheet.textContent = `
+// ===== INITIALIZATION =====
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize core systems
+    initTheme();
+    initThemeListeners();
+    initNavigation();
+
+    // Load saved data
+    loadSavedData();
+
+    // Add smooth scrolling to all anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    // Add intersection observer for animations
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate-in');
+            }
+        });
+    }, observerOptions);
+
+    // Observe meal containers
+    document.querySelectorAll('.meal-container, .summary').forEach(el => {
+        observer.observe(el);
+    });
+
+    // Add food item hover effects
+    document.querySelectorAll('.food-item').forEach(item => {
+        item.addEventListener('mouseenter', () => {
+            const macros = item.querySelectorAll('.food-macro');
+            macros.forEach((macro, index) => {
+                macro.style.transitionDelay = `${index * 50}ms`;
+                macro.classList.add('macro-hover');
+            });
+        });
+
+        item.addEventListener('mouseleave', () => {
+            const macros = item.querySelectorAll('.food-macro');
+            macros.forEach(macro => {
+                macro.style.transitionDelay = '0ms';
+                macro.classList.remove('macro-hover');
+            });
+        });
+    });
+
+    // Show welcome message
+    setTimeout(() => {
+        showNotification('Bem-vindo à sua dieta personalizada! 🍽️', 'success');
+    }, 2000);
+});
+
+// ===== DYNAMIC STYLES =====
+const dynamicStyles = document.createElement('style');
+dynamicStyles.textContent = `
     .theme-transition {
         transition: color 0.6s ease, background-color 0.6s ease, border-color 0.6s ease, box-shadow 0.6s ease;
     }
-    
+
     .theme-toggle-animate {
         animation: spin 0.7s ease-in-out;
     }
-    
+
     @keyframes spin {
-        0% { transform: rotate(0); }
+        0% { transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
     }
-    
-    .pdf-hide {
+
+    .notification {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+        padding: 15px 20px;
+        box-shadow: var(--shadow-soft);
+        z-index: 10000;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-width: 300px;
+        transform: translateX(400px);
+        opacity: 0;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .notification.show {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    .notification.success {
+        border-left: 4px solid var(--accent-color);
+    }
+
+    .notification.error {
+        border-left: 4px solid #ff4757;
+    }
+
+    .notification.warning {
+        border-left: 4px solid #ffa502;
+    }
+
+    .notification.info {
+        border-left: 4px solid var(--primary-color);
+    }
+
+    .notification button {
+        background: none;
+        border: none;
+        color: var(--text-color-light);
+        cursor: pointer;
+        padding: 5px;
+        border-radius: 50%;
+        transition: all 0.2s ease;
+    }
+
+    .notification button:hover {
+        background: var(--border-color);
+        color: var(--text-color);
+    }
+
+    .comparison-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 10000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         opacity: 0;
         visibility: hidden;
+        transition: all 0.3s ease;
     }
-    
+
+    .comparison-modal.show {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .modal-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(5px);
+    }
+
+    .modal-content {
+        background: var(--card-bg);
+        border-radius: var(--card-radius);
+        padding: 30px;
+        max-width: 800px;
+        width: 90%;
+        max-height: 80vh;
+        overflow-y: auto;
+        position: relative;
+        z-index: 1;
+        box-shadow: var(--shadow-strong);
+    }
+
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .modal-close {
+        background: none;
+        border: none;
+        font-size: 20px;
+        color: var(--text-color-light);
+        cursor: pointer;
+        padding: 8px;
+        border-radius: 50%;
+        transition: all 0.2s ease;
+    }
+
+    .modal-close:hover {
+        background: var(--border-color);
+        color: var(--text-color);
+    }
+
+    .comparison-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+    }
+
+    .comparison-card {
+        background: var(--light-color);
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+        padding: 15px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .comparison-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-soft);
+        border-color: var(--primary-color);
+    }
+
+    .randomize-effect {
+        animation: randomize 1s ease-in-out;
+    }
+
+    @keyframes randomize {
+        0%, 100% { transform: scale(1); }
+        25% { transform: scale(1.02) rotate(1deg); }
+        50% { transform: scale(0.98) rotate(-1deg); }
+        75% { transform: scale(1.01) rotate(0.5deg); }
+    }
+
     .exporting {
         pointer-events: none;
         opacity: 0.7;
     }
-    
-    .success-toast {
-        position: fixed;
-        bottom: 30px;
-        left: 50%;
-        transform: translateX(-50%) translateY(20px);
-        background: var(--accent-gradient);
-        color: white;
-        padding: 15px 25px;
-        border-radius: 50px;
-        box-shadow: 0 10px 30px rgba(var(--accent-color-rgb), 0.4);
-        opacity: 0;
-        transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
-        z-index: 9999;
-        font-weight: 600;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-    
-    .success-toast.show {
-        transform: translateX(-50%) translateY(0);
-        opacity: 1;
-    }
-    
-    .success-toast i {
-        font-size: 18px;
-    }
-    
+
     .macro-hover {
-        transform: translateY(-5px) scale(1.08);
-        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
     }
-    
-    .page-loaded .meal-container:nth-child(1) { animation-delay: 0.1s; }
-    .page-loaded .meal-container:nth-child(2) { animation-delay: 0.2s; }
-    .page-loaded .meal-container:nth-child(3) { animation-delay: 0.3s; }
-    .page-loaded .meal-container:nth-child(4) { animation-delay: 0.4s; }
-    .page-loaded .meal-container:nth-child(5) { animation-delay: 0.5s; }
+
+    .animate-in {
+        animation: slideInUp 0.6s ease-out forwards;
+    }
+
+    @keyframes slideInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
 `;
-document.head.appendChild(styleSheet); 
+document.head.appendChild(dynamicStyles);
