@@ -1746,6 +1746,24 @@
     </div>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- Floating Action Buttons -->
+    <div class="floating-buttons">
+        <button class="fab export-button" onclick="generatePDF()" title="Exportar PDF">
+            <span class="tooltip">Exportar PDF</span>
+            <i class="fas fa-file-pdf"></i>
+        </button>
+        <button class="fab theme-toggle" id="theme-toggle-float" title="Alternar tema">
+            <span class="tooltip">Alternar Tema</span>
+            <i class="fas fa-moon"></i>
+        </button>
+        <button class="fab scroll-top" onclick="scrollToSection('summary')" title="Voltar ao topo">
+            <span class="tooltip">Voltar ao Topo</span>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="script.js"></script>
 </body>
-</html> 
+</html>

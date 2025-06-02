@@ -1194,6 +1194,199 @@ h1::after {
     opacity: 0;
 }
 
+/* ===== ENHANCED MEAL SECTIONS ===== */
+.meal-title {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+    z-index: 2;
+}
+
+.meal-icon {
+    font-size: 3rem;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: float 3s ease-in-out infinite;
+}
+
+.meal-info h2 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin: 0 0 8px 0;
+    font-family: var(--heading-font);
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.meal-time {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1rem;
+    opacity: 0.9;
+    font-weight: 500;
+}
+
+.meal-controls {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+    z-index: 2;
+    flex-wrap: wrap;
+}
+
+.macro-badge {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--pill-radius);
+    padding: 8px 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.macro-badge:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+}
+
+.macro-badge i {
+    font-size: 1rem;
+}
+
+.meal-favorite {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.meal-favorite:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: scale(1.1);
+}
+
+.meal-favorite i.fas {
+    color: var(--accent-color);
+}
+
+/* Options Header */
+.options-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 0 40px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.options-header h3 {
+    color: var(--primary-color);
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.options-controls {
+    display: flex;
+    gap: 10px;
+}
+
+/* Enhanced Option Tabs */
+.option-tab {
+    background: var(--light-color);
+    border: 2px solid var(--border-color);
+    border-radius: var(--btn-radius);
+    padding: 15px 20px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    font-weight: 600;
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    min-width: 120px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.option-tab::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: var(--primary-gradient);
+    transition: left 0.4s ease;
+    z-index: 0;
+}
+
+.option-tab:hover::before {
+    left: 0;
+}
+
+.option-tab:hover {
+    color: white;
+    border-color: var(--primary-color);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(var(--primary-color-rgb), 0.3);
+}
+
+.option-tab.active {
+    background: var(--primary-gradient);
+    color: white;
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(var(--primary-color-rgb), 0.4);
+}
+
+.option-tab.active::before {
+    left: 0;
+}
+
+.option-letter {
+    font-size: 1.5rem;
+    font-weight: 800;
+    font-family: var(--heading-font);
+    position: relative;
+    z-index: 1;
+}
+
+.option-name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    position: relative;
+    z-index: 1;
+}
+
+.option-calories {
+    font-size: 0.8rem;
+    opacity: 0.9;
+    font-weight: 500;
+    position: relative;
+    z-index: 1;
+}
+
 @keyframes staggeredFadeIn {
     from { opacity: 0; transform: translateY(40px); }
     to { opacity: 1; transform: translateY(0); }
@@ -2542,6 +2735,107 @@ footer::after {
 /* Transições suaves para todos os elementos */
 *, *::before, *::after {
     transition: all 0.25s ease;
+}
+
+/* ===== FLOATING ACTION BUTTONS ===== */
+.floating-buttons {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    z-index: 1000;
+}
+
+.fab {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: none;
+    background: var(--primary-gradient);
+    color: white;
+    font-size: 1.3rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 25px rgba(var(--primary-color-rgb), 0.4);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+}
+
+.fab:hover {
+    transform: scale(1.1) translateY(-3px);
+    box-shadow: 0 15px 35px rgba(var(--primary-color-rgb), 0.6);
+}
+
+.fab:active {
+    transform: scale(1.05) translateY(-1px);
+}
+
+.fab.export-button {
+    background: var(--accent-gradient);
+    box-shadow: 0 8px 25px rgba(var(--accent-color-rgb), 0.4);
+}
+
+.fab.export-button:hover {
+    box-shadow: 0 15px 35px rgba(var(--accent-color-rgb), 0.6);
+}
+
+.fab.scroll-top {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+.fab.scroll-top:hover {
+    box-shadow: 0 15px 35px rgba(102, 126, 234, 0.6);
+}
+
+.tooltip {
+    position: absolute;
+    right: 75px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--card-bg-glass);
+    backdrop-filter: blur(10px);
+    color: var(--text-color);
+    padding: 8px 15px;
+    border-radius: var(--pill-radius);
+    font-size: 0.85rem;
+    font-weight: 600;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-soft);
+}
+
+.fab:hover .tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-50%) translateX(-5px);
+}
+
+/* Mobile adjustments for floating buttons */
+@media (max-width: 768px) {
+    .floating-buttons {
+        bottom: 20px;
+        right: 20px;
+        gap: 12px;
+    }
+
+    .fab {
+        width: 50px;
+        height: 50px;
+        font-size: 1.1rem;
+    }
+
+    .tooltip {
+        display: none;
+    }
 }
 
 /* Melhorias visuais para tabelas */
